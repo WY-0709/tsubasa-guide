@@ -1333,8 +1333,10 @@
         left: 0;
         right: 0;
         width: 100%;
-        height: 78px;
-        padding: 10px 14px;
+        height: auto;
+        min-height: 78px;
+        max-height: 130px;
+        padding: 8px 10px;
         border-right: none;
         border-top: 1px solid var(--border);
         align-items: center;
@@ -1348,32 +1350,33 @@
 
       .disc-drawer {
         flex-direction: row;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 8px;
         justify-content: center;
-        overflow-x: auto;
+        overflow-x: visible;
         scrollbar-width: none;
-        padding: 0 8px;
+        padding: 0 6px;
       }
 
       .disc-drawer::-webkit-scrollbar { display: none; }
 
       .disc {
-        width: 50px;
-        height: 50px;
+        width: 46px;
+        height: 46px;
         flex-shrink: 0;
       }
 
-      .disc::before { inset: 12px; }
+      .disc::before { inset: 11px; }
 
-      .disc::after { width: 9px; height: 9px; }
+      .disc::after { width: 8px; height: 8px; }
 
-      .disc-icon { font-size: 1.05rem; }
+      .disc-icon { font-size: 1rem; }
 
       .disc-label { display: none; }
 
       .main-area {
         margin-left: 0;
-        padding: 20px 16px 110px;
+        padding: 20px 16px 150px;
         max-width: 720px;
       }
 
@@ -1428,7 +1431,16 @@
 
       .scroll-top {
         right: 16px;
-        bottom: 96px;
+        bottom: 130px;
+      }
+
+      .footer {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 24px 16px 16px;
+        margin-top: 24px;
+        font-size: 0.82rem;
       }
     }
 
