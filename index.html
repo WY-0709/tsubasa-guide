@@ -142,14 +142,6 @@
       50% { opacity: 1; transform: scale(1.2); }
     }
 
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 32px 20px 60px;
-    }
-
     /* Header */
     header {
       text-align: center;
@@ -216,253 +208,154 @@
     .hero-hearts span:nth-child(3) { animation-delay: 0.6s; }
     .hero-hearts span:nth-child(4) { animation-delay: 0.9s; }
 
-    /* Quick nav — musical score book */
-    .quick-nav {
+    /* Sidebar — CD / vinyl disc drawer */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 180px;
+      padding: 28px 14px;
+      z-index: 50;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,248,248,0.92) 100%);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border);
+      box-shadow: 4px 0 24px rgba(0,0,0,0.04);
+    }
+
+    .disc-drawer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .disc {
       position: relative;
-      z-index: 100;
-      margin: 0 auto;
-      max-width: 680px;
-      padding: 0;
-      background: transparent;
-    }
-
-    .score-book {
-      background: linear-gradient(180deg, #ffffff 0%, #fffafa 100%);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
-      padding: 26px 32px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.45s var(--ease-smooth);
-    }
-
-    .score-book::before {
-      content: "𝄞";
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 2.6rem;
-      color: var(--red-200);
-      opacity: 0.5;
-      line-height: 1;
-      pointer-events: none;
-    }
-
-    .score-book-header {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      margin-bottom: 20px;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 25%),
+        repeating-radial-gradient(
+          circle at center,
+          #1f1f1f 0 2px,
+          #2e2e2e 2px 4px
+        );
+      box-shadow:
+        0 5px 16px rgba(0,0,0,0.22),
+        inset 0 1px 1px rgba(255,255,255,0.12);
+      transition: transform 0.35s var(--ease-bounce), box-shadow 0.3s var(--ease-smooth);
     }
 
-    .score-book-title {
-      text-align: center;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--red-700);
-      letter-spacing: 0.02em;
-    }
-
-    .back-to-toc {
-      display: none;
+    .disc::before {
+      content: "";
       position: absolute;
-      left: 0;
+      inset: 14px;
+      border-radius: 50%;
+      background: var(--disc-label, var(--red-500));
+      opacity: 0.92;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35);
+    }
+
+    .disc::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    .disc-icon {
+      position: absolute;
+      z-index: 3;
+      font-size: 1.15rem;
+      line-height: 1;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+      pointer-events: none;
+    }
+
+    .disc-label {
+      position: absolute;
+      left: 68px;
       top: 50%;
       transform: translateY(-50%);
-      align-items: center;
-      gap: 6px;
-      background: var(--red-100);
-      color: var(--red-700);
-      border: 1px solid var(--red-200);
-      border-radius: 999px;
-      padding: 7px 14px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s var(--ease-smooth);
+      white-space: nowrap;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      opacity: 0;
+      transition: opacity 0.25s var(--ease-smooth), transform 0.25s var(--ease-smooth);
+      pointer-events: none;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.8);
     }
 
-    .back-to-toc:hover,
-    .back-to-toc:focus {
-      background: var(--red-500);
-      color: white;
-      border-color: var(--red-500);
+    .disc:hover,
+    .disc:focus {
+      transform: scale(1.12) translateX(4px);
+      box-shadow:
+        0 10px 26px rgba(0,0,0,0.28),
+        0 0 0 4px rgba(230, 57, 70, 0.15),
+        inset 0 1px 1px rgba(255,255,255,0.15);
       outline: none;
     }
 
-    .score-lines {
-      display: grid;
-      gap: 4px;
+    .disc:hover .disc-label,
+    .disc:focus .disc-label {
+      opacity: 1;
+      transform: translateY(-50%) translateX(4px);
     }
 
-    .score-line {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: 48px;
-      padding: 0 16px 0 48px;
-      background: transparent;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: background 0.25s var(--ease-smooth), transform 0.25s var(--ease-bounce);
+    .disc.active {
+      transform: scale(1.08);
+      box-shadow:
+        0 8px 24px rgba(230, 57, 70, 0.35),
+        0 0 0 4px rgba(230, 57, 70, 0.2);
     }
 
-    .score-line::before {
-      content: "";
-      position: absolute;
-      left: 48px;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 29px;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(193, 18, 31, 0.16) 0,
-        rgba(193, 18, 31, 0.16) 1px,
-        transparent 1px,
-        transparent 7px
-      );
-      pointer-events: none;
-      opacity: 0.7;
-    }
-
-    .score-line::after {
-      content: "♪";
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.35rem;
-      color: var(--red-400);
-      transition: transform 0.3s var(--ease-bounce), color 0.25s;
-      line-height: 1;
-    }
-
-    .score-line:hover {
-      background: var(--red-50);
-      transform: translateX(5px);
-    }
-
-    .score-line:hover::after {
-      transform: translateY(-50%) scale(1.2);
-    }
-
-    .score-line:focus {
-      outline: 2px solid var(--red-300);
-      outline-offset: 2px;
-    }
-
-    .score-line.active {
-      background: linear-gradient(90deg, var(--red-100), transparent);
-    }
-
-    .score-line.active::after {
+    .disc.active .disc-label {
+      opacity: 1;
       color: var(--red-600);
-      transform: translateY(-50%) scale(1.25) rotate(-12deg);
+      font-weight: 800;
     }
 
-    .score-note {
+    .disc-home { --disc-label: var(--red-500); }
+    .disc[data-target="sec1"] { --disc-label: #e63946; }
+    .disc[data-target="sec2"] { --disc-label: #ff8fa3; }
+    .disc[data-target="sec3"] { --disc-label: #ffb703; }
+    .disc[data-target="sec4"] { --disc-label: #9b5de5; }
+    .disc[data-target="sec5"] { --disc-label: #00bbf9; }
+    .disc[data-target="sec6"] { --disc-label: #f15bb5; }
+    .disc[data-target="sec7"] { --disc-label: #fb5607; }
+    .disc[data-target="sec8"] { --disc-label: #3a86ff; }
+
+    /* Main area */
+    .main-area {
       position: relative;
       z-index: 1;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--warm-white);
-      padding: 4px 14px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--ink-soft);
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: all 0.25s var(--ease-smooth);
+      margin-left: 180px;
+      min-height: 100vh;
+      padding: 32px 28px 60px;
+      max-width: calc(960px + 180px);
     }
 
-    .score-line:hover .score-note {
-      border-color: var(--red-300);
-      color: var(--red-700);
-    }
-
-    .score-line.active .score-note {
-      background: var(--red-500);
-      color: white;
-      border-color: var(--red-500);
-      box-shadow: 0 4px 14px rgba(230, 57, 70, 0.25);
-    }
-
-    /* Reading mode: compact nav */
-    body.reading .quick-nav {
-      position: sticky;
-      top: 12px;
+    header {
+      text-align: center;
+      padding: 48px 20px 36px;
       margin-bottom: 24px;
-      max-width: 100%;
-    }
-
-    body.reading .score-book {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      box-shadow: var(--shadow-md);
-    }
-
-    body.reading .score-book::before,
-    body.reading .score-book-title {
-      display: none;
-    }
-
-    body.reading .back-to-toc {
-      display: inline-flex;
-      position: static;
-      transform: none;
-      flex-shrink: 0;
-    }
-
-    body.reading .score-book-header {
-      margin-bottom: 0;
-      flex-shrink: 0;
-    }
-
-    body.reading .score-lines {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    body.reading .score-lines::-webkit-scrollbar {
-      display: none;
-    }
-
-    body.reading .score-line {
-      height: 32px;
-      padding: 0 10px;
-      flex-shrink: 0;
-      border-radius: 999px;
-    }
-
-    body.reading .score-line::before,
-    body.reading .score-line::after {
-      display: none;
-    }
-
-    body.reading .score-note {
-      border: 1px solid var(--border);
-      background: var(--warm-white);
-      white-space: nowrap;
-      font-size: 0.76rem;
-      padding: 3px 10px;
-    }
-
-    body.reading .score-line.active .score-note {
-      background: var(--red-500);
-      color: white;
-      border-color: var(--red-500);
+      position: relative;
     }
 
     /* Sections stage */
@@ -904,8 +797,56 @@
     }
 
     /* Responsive */
+    @media (max-width: 800px) {
+      .sidebar {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 78px;
+        padding: 10px 14px;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.06);
+      }
+
+      .disc-drawer {
+        flex-direction: row;
+        gap: 10px;
+        justify-content: center;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 0 8px;
+      }
+
+      .disc-drawer::-webkit-scrollbar { display: none; }
+
+      .disc {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .disc::before { inset: 11px; }
+
+      .disc-label { display: none; }
+
+      .main-area {
+        margin-left: 0;
+        padding: 20px 16px 110px;
+        max-width: 720px;
+      }
+
+      .scroll-top {
+        right: 16px;
+        bottom: 96px;
+      }
+    }
+
     @media (max-width: 640px) {
-      .container { padding: 20px 14px 44px; }
       header { padding: 32px 14px 24px; }
       .section { padding: 22px 18px; border-radius: var(--radius-lg); }
       .section-title { gap: 10px; }
@@ -914,16 +855,6 @@
       .knowledge-item { padding: 16px 16px 16px 78px; }
       .knowledge-item::before { width: 48px; height: 48px; left: 16px; }
       .knowledge-item::after { width: 8px; height: 8px; left: 36px; }
-      .score-book { padding: 20px 18px; }
-      .score-book-title { font-size: 0.95rem; }
-      .score-line { height: 42px; padding: 0 12px 0 40px; }
-      .score-note { font-size: 0.82rem; padding: 3px 12px; }
-      .score-line::before { left: 40px; right: 12px; height: 25px; }
-      .score-line::after { left: 12px; font-size: 1.15rem; }
-      body.reading .score-book { flex-wrap: wrap; gap: 6px; padding: 8px 12px; border-radius: var(--radius-lg); }
-      body.reading .score-line { height: 30px; padding: 0 8px; }
-      body.reading .score-note { font-size: 0.72rem; padding: 2px 8px; }
-      body.reading .back-to-toc { padding: 5px 10px; font-size: 0.72rem; }
       .equip-list { grid-template-columns: 1fr; }
       .member-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
     }
@@ -947,8 +878,49 @@
     <span class="floating-heart">❤️</span>
   </div>
 
-  <div class="container">
-    <header>
+  <aside class="sidebar">
+    <nav class="disc-drawer" aria-label="章节导航">
+      <button class="disc disc-home" data-target="overview" aria-label="返回目录">
+        <span class="disc-icon">🎼</span>
+        <span class="disc-label">目次</span>
+      </button>
+      <button class="disc" data-target="sec1" aria-label="基础热知识">
+        <span class="disc-icon">🔥</span>
+        <span class="disc-label">基础热知识</span>
+      </button>
+      <button class="disc" data-target="sec2" aria-label="外貌穿搭">
+        <span class="disc-icon">✨</span>
+        <span class="disc-label">外貌穿搭</span>
+      </button>
+      <button class="disc" data-target="sec3" aria-label="性格生活">
+        <span class="disc-icon">🧠</span>
+        <span class="disc-label">性格生活</span>
+      </button>
+      <button class="disc" data-target="sec4" aria-label="唱功音乐">
+        <span class="disc-icon">🎤</span>
+        <span class="disc-label">唱功音乐</span>
+      </button>
+      <button class="disc" data-target="sec5" aria-label="爱好杂学">
+        <span class="disc-icon">🎮</span>
+        <span class="disc-label">爱好杂学</span>
+      </button>
+      <button class="disc" data-target="sec6" aria-label="粉丝梗">
+        <span class="disc-icon">💬</span>
+        <span class="disc-label">粉丝梗</span>
+      </button>
+      <button class="disc" data-target="sec7" aria-label="入坑渠道">
+        <span class="disc-icon">🚀</span>
+        <span class="disc-label">入坑渠道</span>
+      </button>
+      <button class="disc" data-target="sec8" aria-label="B站清单">
+        <span class="disc-icon">🎬</span>
+        <span class="disc-label">B站清单</span>
+      </button>
+    </nav>
+  </aside>
+
+  <div class="main-area">
+    <header class="header">
       <div class="hero-badge">2026.9 更新版</div>
       <h1>❤️ ツバサ入坑指南</h1>
       <p class="subtitle">冷热知识大全 · B站安利清单 · 一篇就够了 · 给所有想认识他的人</p>
@@ -959,25 +931,6 @@
         <span>✨</span>
       </div>
     </header>
-
-    <nav class="quick-nav" aria-label="快速导航">
-      <div class="score-book">
-        <div class="score-book-header">
-          <div class="score-book-title">🎼 目次 · 翻开任意乐章</div>
-          <button class="back-to-toc" type="button" aria-label="返回目录">🎼 目录</button>
-        </div>
-        <div class="score-lines">
-          <button class="score-line" data-target="sec1"><span class="score-note">🔥 基础热知识</span></button>
-          <button class="score-line" data-target="sec2"><span class="score-note">✨ 外貌穿搭</span></button>
-          <button class="score-line" data-target="sec3"><span class="score-note">🧠 性格生活</span></button>
-          <button class="score-line" data-target="sec4"><span class="score-note">🎤 唱功音乐</span></button>
-          <button class="score-line" data-target="sec5"><span class="score-note">🎮 爱好杂学</span></button>
-          <button class="score-line" data-target="sec6"><span class="score-note">💬 粉丝梗</span></button>
-          <button class="score-line" data-target="sec7"><span class="score-note">🚀 入坑渠道</span></button>
-          <button class="score-line" data-target="sec8"><span class="score-note">🎬 B站清单</span></button>
-        </div>
-      </div>
-    </nav>
 
     <main class="sections-stage" aria-live="polite">
 
@@ -1863,10 +1816,9 @@
   <button class="scroll-top" id="scrollTop" aria-label="回到顶部">↑</button>
 
   <script>
-    // View switcher: score book (overview) vs section reader
+    // View switcher: disc drawer (overview) vs section reader
     const sections = document.querySelectorAll('.section');
-    const scoreLines = document.querySelectorAll('.score-line');
-    const backToToc = document.querySelector('.back-to-toc');
+    const discs = document.querySelectorAll('.disc');
 
     function wrapSectionContent() {
       sections.forEach(section => {
@@ -1884,11 +1836,11 @@
       document.body.classList.remove('overview');
 
       sections.forEach(s => s.classList.remove('active-section'));
-      scoreLines.forEach(l => l.classList.remove('active'));
+      discs.forEach(d => d.classList.remove('active'));
 
       targetSection.classList.add('active-section');
-      const line = document.querySelector(`.score-line[data-target="${targetSection.id}"]`);
-      if (line) line.classList.add('active');
+      const disc = document.querySelector(`.disc[data-target="${targetSection.id}"]`);
+      if (disc) disc.classList.add('active');
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1897,24 +1849,24 @@
       document.body.classList.remove('reading');
       document.body.classList.add('overview');
       sections.forEach(s => s.classList.remove('active-section'));
-      scoreLines.forEach(l => l.classList.remove('active'));
+      discs.forEach(d => d.classList.remove('active'));
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     wrapSectionContent();
     document.body.classList.add('overview');
 
-    scoreLines.forEach(line => {
-      line.addEventListener('click', () => {
-        const targetId = line.getAttribute('data-target');
+    discs.forEach(disc => {
+      disc.addEventListener('click', () => {
+        const targetId = disc.getAttribute('data-target');
+        if (targetId === 'overview') {
+          showOverview();
+          return;
+        }
         const targetSection = document.getElementById(targetId);
         if (targetSection) showSection(targetSection);
       });
     });
-
-    if (backToToc) {
-      backToToc.addEventListener('click', showOverview);
-    }
 
     // Optional: allow section title clicks in reading mode to return to overview
     sections.forEach(section => {
