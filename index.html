@@ -308,8 +308,159 @@
       animation: spin-record 1.8s linear infinite;
     }
 
-    body.reading .tape-shelf {
+    body.reading .cd-shelf,
+    body.reading .cd-hint {
       display: none;
+    }
+
+    body.overview .sidebar {
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* CD shelf — 3D rotating album covers */
+    .cd-shelf {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-top: 46px;
+      padding: 0 24px;
+      min-height: 220px;
+      perspective: 1200px;
+      flex-wrap: wrap;
+    }
+
+    .cd-case {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transform: rotateY(-78deg) rotateX(2deg);
+      transition: transform 0.55s var(--ease-bounce), z-index 0s;
+      outline: none;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .cd-case:focus-visible {
+      outline: 3px solid var(--red-300);
+      outline-offset: 8px;
+    }
+
+    .cd-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.18);
+      overflow: hidden;
+    }
+
+    .cd-front {
+      transform: rotateY(0deg);
+      background: #1a1a1a;
+    }
+
+    .cd-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cd-shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        125deg,
+        rgba(255,255,255,0) 30%,
+        rgba(255,255,255,0.18) 48%,
+        rgba(255,255,255,0) 66%
+      );
+      opacity: 0.6;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .cd-spine {
+      transform: rotateY(90deg) translateZ(75px);
+      width: 22px;
+      left: 64px;
+      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: white;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+
+    .cd-spine-icon {
+      font-size: 0.95rem;
+    }
+
+    .cd-spine-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+    }
+
+    .cd-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    }
+
+    .cd-back::before {
+      content: "💿";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      opacity: 0.35;
+    }
+
+    .cd-case:hover,
+    .cd-case:focus {
+      transform: rotateY(-30deg) rotateX(0deg) translateZ(40px) scale(1.08);
+      z-index: 10;
+    }
+
+    .cd-case:hover .cd-shine,
+    .cd-case:focus .cd-shine {
+      opacity: 1;
+    }
+
+    .cd-case.active {
+      transform: rotateY(0deg) translateZ(120px) scale(1.15);
+      z-index: 20;
+      transition: transform 0.7s var(--ease-bounce), z-index 0s;
+    }
+
+    .cd-hint {
+      margin-top: 28px;
+      font-size: 0.92rem;
+      color: var(--text-tertiary);
+      opacity: 0.85;
+      animation: pulse-hint 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-hint {
+      0%, 100% { opacity: 0.55; transform: translateY(0); }
+      50% { opacity: 0.95; transform: translateY(-3px); }
     }
 
     /* Sidebar — CD / vinyl disc drawer */
@@ -940,6 +1091,10 @@
         box-shadow: 0 -4px 24px rgba(0,0,0,0.06);
       }
 
+      body.overview .sidebar {
+        transform: translateY(100%);
+      }
+
       .disc-drawer {
         flex-direction: row;
         gap: 10px;
@@ -967,43 +1122,49 @@
         max-width: 720px;
       }
 
-      .tape-shelf {
-        gap: 6px;
+      .cd-shelf {
+        gap: 10px;
         margin-top: 28px;
         min-height: 130px;
       }
 
-      .tape {
-        width: 34px;
-        height: 130px;
-        border-radius: 8px;
-        padding: 8px 0;
+      .cd-case {
+        width: 90px;
+        height: 90px;
+        transform: rotateY(-75deg) rotateX(2deg);
       }
 
-      .tape::before {
-        inset: 4px;
-        border-radius: 6px;
-      }
-
-      .tape-reel {
+      .cd-spine {
         width: 16px;
-        height: 16px;
-        border-width: 2px;
+        left: 37px;
+        transform: rotateY(90deg) translateZ(45px);
       }
 
-      .tape-reel::after {
-        inset: 4px;
+      .cd-spine-icon {
+        font-size: 0.7rem;
       }
 
-      .tape-label {
-        font-size: 0.62rem;
-        letter-spacing: 0.04em;
+      .cd-spine-text {
+        font-size: 0.5rem;
+        letter-spacing: 0.08em;
       }
 
-      .tape:hover,
-      .tape:focus {
-        width: 44px;
-        transform: translateY(-10px) scale(1.05) rotateX(-2deg);
+      .cd-case:hover,
+      .cd-case:focus {
+        transform: rotateY(-25deg) rotateX(0deg) translateZ(25px) scale(1.08);
+      }
+
+      .cd-case.active {
+        transform: rotateY(0deg) translateZ(60px) scale(1.12);
+      }
+
+      .cd-back::before {
+        font-size: 1.6rem;
+      }
+
+      .cd-hint {
+        font-size: 0.8rem;
+        margin-top: 18px;
       }
 
       .scroll-top {
@@ -1106,48 +1267,105 @@
         <span>✨</span>
       </div>
 
-      <div class="tape-shelf" aria-label="章节卡带">
-        <button class="tape" data-target="sec1" aria-label="基础热知识" style="--tape-color: #e63946; --tape-gradient: linear-gradient(180deg, #ff6b6b 0%, #e63946 50%, #c1121f 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">🔥 基础热知识</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+      <div class="cd-shelf" aria-label="章节CD">
+        <button class="cd-case" data-target="sec1" aria-label="基础热知识">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-1.png" alt="基础热知识封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">🔥</span>
+            <span class="cd-spine-text">基础热知识</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec2" aria-label="外貌穿搭" style="--tape-color: #ff8fa3; --tape-gradient: linear-gradient(180deg, #ffb3c1 0%, #ff8fa3 50%, #ff5c8d 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">✨ 外貌穿搭</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec2" aria-label="外貌穿搭">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-2.png" alt="外貌穿搭封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">✨</span>
+            <span class="cd-spine-text">外貌穿搭</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec3" aria-label="性格生活" style="--tape-color: #ffb703; --tape-gradient: linear-gradient(180deg, #ffd166 0%, #ffb703 50%, #fb8500 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">🧠 性格生活</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec3" aria-label="性格生活">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-3.png" alt="性格生活封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">🧠</span>
+            <span class="cd-spine-text">性格生活</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec4" aria-label="唱功音乐" style="--tape-color: #9b5de5; --tape-gradient: linear-gradient(180deg, #c77dff 0%, #9b5de5 50%, #7b2cbf 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">🎤 唱功音乐</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec4" aria-label="唱功音乐">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-4.jpg" alt="唱功音乐封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">🎤</span>
+            <span class="cd-spine-text">唱功音乐</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec5" aria-label="爱好杂学" style="--tape-color: #00bbf9; --tape-gradient: linear-gradient(180deg, #48cae4 0%, #00bbf9 50%, #0096c7 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">🎮 爱好杂学</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec5" aria-label="爱好杂学">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-5.png" alt="爱好杂学封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">🎮</span>
+            <span class="cd-spine-text">爱好杂学</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec6" aria-label="粉丝梗" style="--tape-color: #f15bb5; --tape-gradient: linear-gradient(180deg, #ff85c1 0%, #f15bb5 50%, #d61c8b 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">💬 粉丝梗</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec6" aria-label="粉丝梗">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-6.png" alt="粉丝梗封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">💬</span>
+            <span class="cd-spine-text">粉丝梗</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec7" aria-label="入坑渠道" style="--tape-color: #fb5607; --tape-gradient: linear-gradient(180deg, #ff8552 0%, #fb5607 50%, #e83f00 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">🚀 入坑渠道</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec7" aria-label="入坑渠道">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-7.png" alt="入坑渠道封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">🚀</span>
+            <span class="cd-spine-text">入坑渠道</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
-        <button class="tape" data-target="sec8" aria-label="B站清单" style="--tape-color: #3a86ff; --tape-gradient: linear-gradient(180deg, #74c0fc 0%, #3a86ff 50%, #1864ab 100%);">
-          <span class="tape-reel" aria-hidden="true"></span>
-          <span class="tape-label">🎬 B站清单</span>
-          <span class="tape-reel" aria-hidden="true"></span>
+
+        <button class="cd-case" data-target="sec8" aria-label="B站清单">
+          <div class="cd-face cd-front">
+            <img src="assets/cover-8.png" alt="B站清单封面" loading="lazy">
+            <span class="cd-shine" aria-hidden="true"></span>
+          </div>
+          <div class="cd-face cd-spine" aria-hidden="true">
+            <span class="cd-spine-icon">🎬</span>
+            <span class="cd-spine-text">B站清单</span>
+          </div>
+          <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
       </div>
+
+      <p class="cd-hint">点击CD封面展开内容 ✨</p>
     </header>
 
     <main class="sections-stage" aria-live="polite">
@@ -2097,12 +2315,20 @@
       });
     });
 
-    const tapes = document.querySelectorAll('.tape');
-    tapes.forEach(tape => {
-      tape.addEventListener('click', () => {
-        const targetId = tape.getAttribute('data-target');
+    const cdCases = document.querySelectorAll('.cd-case');
+    cdCases.forEach(cdCase => {
+      cdCase.addEventListener('click', () => {
+        const targetId = cdCase.getAttribute('data-target');
         const targetSection = document.getElementById(targetId);
-        if (targetSection) showSection(targetSection);
+        if (!targetSection) return;
+
+        cdCases.forEach(c => c.classList.remove('active'));
+        cdCase.classList.add('active');
+
+        setTimeout(() => {
+          showSection(targetSection);
+          cdCase.classList.remove('active');
+        }, 650);
       });
     });
 
