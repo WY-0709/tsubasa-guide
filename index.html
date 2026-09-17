@@ -208,6 +208,110 @@
     .hero-hearts span:nth-child(3) { animation-delay: 0.6s; }
     .hero-hearts span:nth-child(4) { animation-delay: 0.9s; }
 
+    /* Tape shelf — overview cassette gallery */
+    .tape-shelf {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 10px;
+      margin-top: 42px;
+      padding: 0 20px;
+      min-height: 190px;
+      perspective: 900px;
+      flex-wrap: wrap;
+    }
+
+    .tape {
+      position: relative;
+      width: 44px;
+      height: 170px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: var(--tape-gradient, linear-gradient(180deg, #ff6b6b, #e63946));
+      box-shadow:
+        0 6px 18px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        inset 0 -1px 0 rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      transition: all 0.35s var(--ease-bounce);
+      transform-origin: bottom center;
+      overflow: hidden;
+    }
+
+    .tape::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 8px;
+      border: 2px dashed rgba(255,255,255,0.35);
+      pointer-events: none;
+    }
+
+    .tape-reel {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #3a3a3a 0%, #1a1a1a 40%, #0d0d0d 100%);
+      border: 3px solid rgba(255,255,255,0.85);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .tape-reel::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .tape-label {
+      position: relative;
+      z-index: 1;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      padding: 6px 0;
+      white-space: nowrap;
+    }
+
+    .tape:hover,
+    .tape:focus {
+      transform: translateY(-14px) scale(1.06) rotateX(-2deg);
+      width: 62px;
+      box-shadow:
+        0 18px 36px rgba(0,0,0,0.22),
+        0 0 0 4px rgba(230, 57, 70, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+      outline: none;
+    }
+
+    .tape:focus-visible {
+      outline: 3px solid var(--red-300);
+      outline-offset: 3px;
+    }
+
+    .tape:hover .tape-reel,
+    .tape:focus .tape-reel {
+      animation: spin-record 1.8s linear infinite;
+    }
+
+    body.reading .tape-shelf {
+      display: none;
+    }
+
     /* Sidebar — CD / vinyl disc drawer */
     .sidebar {
       position: fixed;
@@ -863,6 +967,45 @@
         max-width: 720px;
       }
 
+      .tape-shelf {
+        gap: 6px;
+        margin-top: 28px;
+        min-height: 130px;
+      }
+
+      .tape {
+        width: 34px;
+        height: 130px;
+        border-radius: 8px;
+        padding: 8px 0;
+      }
+
+      .tape::before {
+        inset: 4px;
+        border-radius: 6px;
+      }
+
+      .tape-reel {
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+      }
+
+      .tape-reel::after {
+        inset: 4px;
+      }
+
+      .tape-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+      }
+
+      .tape:hover,
+      .tape:focus {
+        width: 44px;
+        transform: translateY(-10px) scale(1.05) rotateX(-2deg);
+      }
+
       .scroll-top {
         right: 16px;
         bottom: 96px;
@@ -961,6 +1104,49 @@
         <span>❤️</span>
         <span>🎵</span>
         <span>✨</span>
+      </div>
+
+      <div class="tape-shelf" aria-label="章节卡带">
+        <button class="tape" data-target="sec1" aria-label="基础热知识" style="--tape-color: #e63946; --tape-gradient: linear-gradient(180deg, #ff6b6b 0%, #e63946 50%, #c1121f 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">🔥 基础热知识</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec2" aria-label="外貌穿搭" style="--tape-color: #ff8fa3; --tape-gradient: linear-gradient(180deg, #ffb3c1 0%, #ff8fa3 50%, #ff5c8d 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">✨ 外貌穿搭</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec3" aria-label="性格生活" style="--tape-color: #ffb703; --tape-gradient: linear-gradient(180deg, #ffd166 0%, #ffb703 50%, #fb8500 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">🧠 性格生活</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec4" aria-label="唱功音乐" style="--tape-color: #9b5de5; --tape-gradient: linear-gradient(180deg, #c77dff 0%, #9b5de5 50%, #7b2cbf 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">🎤 唱功音乐</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec5" aria-label="爱好杂学" style="--tape-color: #00bbf9; --tape-gradient: linear-gradient(180deg, #48cae4 0%, #00bbf9 50%, #0096c7 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">🎮 爱好杂学</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec6" aria-label="粉丝梗" style="--tape-color: #f15bb5; --tape-gradient: linear-gradient(180deg, #ff85c1 0%, #f15bb5 50%, #d61c8b 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">💬 粉丝梗</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec7" aria-label="入坑渠道" style="--tape-color: #fb5607; --tape-gradient: linear-gradient(180deg, #ff8552 0%, #fb5607 50%, #e83f00 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">🚀 入坑渠道</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
+        <button class="tape" data-target="sec8" aria-label="B站清单" style="--tape-color: #3a86ff; --tape-gradient: linear-gradient(180deg, #74c0fc 0%, #3a86ff 50%, #1864ab 100%);">
+          <span class="tape-reel" aria-hidden="true"></span>
+          <span class="tape-label">🎬 B站清单</span>
+          <span class="tape-reel" aria-hidden="true"></span>
+        </button>
       </div>
     </header>
 
@@ -1644,21 +1830,21 @@
       <article class="knowledge-item cold">
         <div class="item-header"><span class="tag">B站</span> 中文粉丝听歌推荐</div>
         <div class="item-body">
-          想在B站听他的歌？搜索「<span class="highlight">オススメ歌ってみた集</span>」——这个账号做了ツバサ的歌曲合集，都是<span class="highlight">授权转载</span>的，可以放心听～
+          想在B站听他的歌？关注 <a href="https://space.bilibili.com/1077574203/" target="_blank" class="channel-link">オススメ歌ってみた集</a> ——这个账号做了ツバサ的歌曲合集，都是<span class="highlight">授权转载</span>的，可以放心听～
         </div>
       </article>
 
       <article class="knowledge-item cold">
         <div class="item-header"><span class="tag">B站</span> 团物料搬运首选</div>
         <div class="item-body">
-          想追EL6团体物料最方便的B站账号：<span class="highlight">EL6-搬运戒托</span>——团活、直播、生放各种物料都有，关注这一个就够了！
+          想追EL6团体物料最方便的B站账号：<a href="https://space.bilibili.com/3546914890975674/" target="_blank" class="channel-link">EL6-搬运戒托</a>——团活、直播、生放各种物料都有，关注这一个就够了！
         </div>
       </article>
 
       <article class="knowledge-item cold">
         <div class="item-header"><span class="tag">B站</span> 切片熟肉推荐</div>
         <div class="item-body">
-          想看翻译好的切片？推荐 <span class="highlight">Nayuww</span> 老师——经常做EL6的切片熟肉（中文翻译），入坑必备！
+          想看翻译好的切片？推荐 <a href="https://space.bilibili.com/4202088/" target="_blank" class="channel-link">Nayuww</a> 老师——经常做EL6的切片熟肉（中文翻译），入坑必备！
         </div>
       </article>
     </section>
@@ -1906,6 +2092,15 @@
           showOverview();
           return;
         }
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) showSection(targetSection);
+      });
+    });
+
+    const tapes = document.querySelectorAll('.tape');
+    tapes.forEach(tape => {
+      tape.addEventListener('click', () => {
+        const targetId = tape.getAttribute('data-target');
         const targetSection = document.getElementById(targetId);
         if (targetSection) showSection(targetSection);
       });
