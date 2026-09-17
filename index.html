@@ -59,6 +59,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -448,7 +449,8 @@
     }
     @media (max-width: 800px) {
       .music-player {
-        width: min(360px, 92vw);
+        width: 100%;
+        max-width: 360px;
         padding: 18px 16px 14px;
       }
       .player-vinyl {
@@ -1391,12 +1393,13 @@
         margin-top: 18px;
         padding: 10px 12px 16px;
         min-height: 140px;
+        overflow: hidden;
       }
 
       .cd-case {
         width: 100px;
         height: 100px;
-        transform: rotateY(-50deg) rotateX(2deg);
+        transform: rotateY(-25deg) rotateX(2deg);
       }
 
       .side-decorations { display: none; }
