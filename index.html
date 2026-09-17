@@ -213,6 +213,240 @@
       display: none;
     }
 
+
+    /* Music player */
+    .music-player {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 260px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px 18px;
+      box-shadow: var(--shadow-md);
+      z-index: 5;
+      transition: transform 0.35s var(--ease-bounce), box-shadow 0.35s var(--ease-smooth);
+    }
+    .music-player:hover {
+      transform: translateY(-50%) translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .music-player-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--red-600);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+    .music-player-header span {
+      font-size: 1.1rem;
+    }
+    .player-vinyl {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 40%),
+        repeating-radial-gradient(circle at center, #2a2a2a 0px, #1a1a1a 2px, #2a2a2a 3px, #1a1a1a 5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18), inset 0 0 0 12px #111;
+      position: relative;
+      transition: transform 0.4s var(--ease-smooth);
+    }
+    .player-vinyl::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--red-500);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px var(--red-200);
+    }
+    .player-vinyl::after {
+      content: "🎵";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+    }
+    .music-player.playing .player-vinyl {
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .player-track {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .player-track-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .player-track-index {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      margin-top: 3px;
+    }
+    .player-progress {
+      width: 100%;
+      height: 5px;
+      background: var(--red-100);
+      border-radius: 999px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .player-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--red-400), var(--red-600));
+      border-radius: 999px;
+      transition: width 0.1s linear;
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .player-btn {
+      background: var(--red-50);
+      border: 1px solid var(--red-200);
+      color: var(--red-600);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s var(--ease-smooth);
+    }
+    .player-btn:hover {
+      background: var(--red-500);
+      color: #fff;
+      transform: scale(1.08);
+      border-color: var(--red-500);
+    }
+    .player-btn.play-pause {
+      width: 50px;
+      height: 50px;
+      background: var(--red-500);
+      color: #fff;
+      border-color: var(--red-500);
+      font-size: 1.3rem;
+    }
+    .player-btn.play-pause:hover {
+      background: var(--red-600);
+      transform: scale(1.1);
+    }
+    .player-playlist-toggle {
+      width: 100%;
+      padding: 8px 12px;
+      background: transparent;
+      border: 1px dashed var(--red-200);
+      border-radius: var(--radius-sm);
+      color: var(--red-600);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-smooth);
+    }
+    .player-playlist-toggle:hover {
+      background: var(--red-50);
+      border-style: solid;
+    }
+    .player-playlist {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease-smooth), margin 0.35s var(--ease-smooth);
+      margin-top: 0;
+    }
+    .player-playlist.open {
+      max-height: 240px;
+      margin-top: 12px;
+    }
+    .player-playlist ul {
+      list-style: none;
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .player-playlist li {
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background 0.15s;
+    }
+    .player-playlist li:hover {
+      background: var(--red-50);
+    }
+    .player-playlist li.active {
+      background: var(--red-100);
+      color: var(--red-700);
+      font-weight: 700;
+    }
+    .player-playlist li.active::before {
+      content: "▸ ";
+    }
+    .music-player-empty {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      padding: 20px 0;
+    }
+
+    @media (max-width: 1200px) {
+      .music-player {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        width: min(420px, 92vw);
+        margin: 18px auto 0;
+      }
+      .music-player:hover {
+        transform: translateY(-2px);
+      }
+    }
+    @media (max-width: 800px) {
+      .music-player {
+        width: min(360px, 92vw);
+        padding: 18px 16px 14px;
+      }
+      .player-vinyl {
+        width: 90px;
+        height: 90px;
+      }
+      .player-vinyl::before {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
     /* Side decorations for overview */
     .side-decorations {
       position: absolute;
@@ -1386,12 +1620,29 @@
         </button>
       </div>
 
-      <div class="side-decorations" aria-hidden="true">
-        <span class="side-note">🎵</span>
-        <span class="side-note">🎶</span>
-        <span class="side-note">❤️</span>
-        <span class="side-vinyl"></span>
+
+      <div class="music-player" id="musicPlayer" aria-label="音乐播放器">
+        <div class="music-player-header"><span>🎧</span> つばさの歌</div>
+        <div class="player-vinyl" aria-hidden="true"></div>
+        <div class="player-track">
+          <div class="player-track-title" id="playerTitle">点击播放 ▶</div>
+          <div class="player-track-index" id="playerIndex">0 / 69</div>
+        </div>
+        <div class="player-progress" id="playerProgress" aria-hidden="true">
+          <div class="player-progress-bar" id="playerProgressBar"></div>
+        </div>
+        <div class="player-controls">
+          <button class="player-btn" id="prevBtn" aria-label="上一首">⏮</button>
+          <button class="player-btn play-pause" id="playPauseBtn" aria-label="播放/暂停">▶</button>
+          <button class="player-btn" id="nextBtn" aria-label="下一首">⏭</button>
+        </div>
+        <button class="player-playlist-toggle" id="playlistToggle" aria-expanded="false" aria-controls="playerPlaylist">📋 播放列表</button>
+        <div class="player-playlist" id="playerPlaylist" aria-label="播放列表">
+          <ul id="playlistList"></ul>
+        </div>
+        <audio id="audioEl" preload="none"></audio>
       </div>
+
     </header>
 
     <main class="sections-stage" aria-live="polite">
@@ -2407,5 +2658,476 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
+
+  <script>
+    const PLAYLIST = [
+  {
+    "title": "呀啦啦啦 ツバサ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【EL6】呀啦啦啦_ツバサ【cover】.mp3",
+    "filename": "【EL6】呀啦啦啦_ツバサ【cover】.mp3"
+  },
+  {
+    "title": "Beyond the way",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【あすり × ツバサ × Tee.】Beyond the way【授权转载】.mp3",
+    "filename": "【あすり × ツバサ × Tee.】Beyond the way【授权转载】.mp3"
+  },
+  {
+    "title": "BRAIN",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】BRAIN【授权转载】.mp3",
+    "filename": "【ツバサ】BRAIN【授权转载】.mp3"
+  },
+  {
+    "title": "Dec.",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】Dec.【授权转载】.mp3",
+    "filename": "【ツバサ】Dec.【授权转载】.mp3"
+  },
+  {
+    "title": "IRIS OUT",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】IRIS OUT【授权转载】.mp3",
+    "filename": "【ツバサ】IRIS OUT【授权转载】.mp3"
+  },
+  {
+    "title": "Rabbit⁉。",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】Rabbit⁉。【授权转载】.mp3",
+    "filename": "【ツバサ】Rabbit⁉。【授权转载】.mp3"
+  },
+  {
+    "title": "Rumor",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】Rumor【授权转载】.mp3",
+    "filename": "【ツバサ】Rumor【授权转载】.mp3"
+  },
+  {
+    "title": "fake face dance music",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】fake face dance music【授权转载】.mp3",
+    "filename": "【ツバサ】fake face dance music【授权转载】.mp3"
+  },
+  {
+    "title": "mind find",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】mind find【授权转载】.mp3",
+    "filename": "【ツバサ】mind find【授权转载】.mp3"
+  },
+  {
+    "title": "ずうっといっしょ！",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ずうっといっしょ！【授权转载】.mp3",
+    "filename": "【ツバサ】ずうっといっしょ！【授权转载】.mp3"
+  },
+  {
+    "title": "ねこふんじゃった。",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ねこふんじゃった。【授权转载】.mp3",
+    "filename": "【ツバサ】ねこふんじゃった。【授权转载】.mp3"
+  },
+  {
+    "title": "また来襲",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】また来襲【授权转载】.mp3",
+    "filename": "【ツバサ】また来襲【授权转载】.mp3"
+  },
+  {
+    "title": "ウルティマチナ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ウルティマチナ【授权转载】.mp3",
+    "filename": "【ツバサ】ウルティマチナ【授权转载】.mp3"
+  },
+  {
+    "title": "エウレカ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】エウレカ【授权转载】.mp3",
+    "filename": "【ツバサ】エウレカ【授权转载】.mp3"
+  },
+  {
+    "title": "カゲロウデイズ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】カゲロウデイズ【授权转载】.mp3",
+    "filename": "【ツバサ】カゲロウデイズ【授权转载】.mp3"
+  },
+  {
+    "title": "カミサマネジマキ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】カミサマネジマキ【授权转载】.mp3",
+    "filename": "【ツバサ】カミサマネジマキ【授权转载】.mp3"
+  },
+  {
+    "title": "カルチャ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】カルチャ【授权转载】.mp3",
+    "filename": "【ツバサ】カルチャ【授权转载】.mp3"
+  },
+  {
+    "title": "キャットラビング",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】キャットラビング【授权转载】.mp3",
+    "filename": "【ツバサ】キャットラビング【授权转载】.mp3"
+  },
+  {
+    "title": "クイーンオブハート",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】クイーンオブハート【授权转载】.mp3",
+    "filename": "【ツバサ】クイーンオブハート【授权转载】.mp3"
+  },
+  {
+    "title": "ゴールデンイエロー",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ゴールデンイエロー【授权转载】.mp3",
+    "filename": "【ツバサ】ゴールデンイエロー【授权转载】.mp3"
+  },
+  {
+    "title": "サリシノハラ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】サリシノハラ【授权转载】.mp3",
+    "filename": "【ツバサ】サリシノハラ【授权转载】.mp3"
+  },
+  {
+    "title": "スクワッド！",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】スクワッド！【授权转载】.mp3",
+    "filename": "【ツバサ】スクワッド！【授权转载】.mp3"
+  },
+  {
+    "title": "スピークイージー",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】スピークイージー【授权转载】.mp3",
+    "filename": "【ツバサ】スピークイージー【授权转载】.mp3"
+  },
+  {
+    "title": "セレナーデ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】セレナーデ【授权转载】.mp3",
+    "filename": "【ツバサ】セレナーデ【授权转载】.mp3"
+  },
+  {
+    "title": "チョイス",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】チョイス【授权转载】.mp3",
+    "filename": "【ツバサ】チョイス【授权转载】.mp3"
+  },
+  {
+    "title": "チョコレートミルク",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】チョコレートミルク【授权转载】.mp3",
+    "filename": "【ツバサ】チョコレートミルク【授权转载】.mp3"
+  },
+  {
+    "title": "デーモンロード",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】デーモンロード【授权转载】.mp3",
+    "filename": "【ツバサ】デーモンロード【授权转载】.mp3"
+  },
+  {
+    "title": "ナイトルール",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ナイトルール【授权转载】.mp3",
+    "filename": "【ツバサ】ナイトルール【授权转载】.mp3"
+  },
+  {
+    "title": "バースデイ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】バースデイ【授权转载】.mp3",
+    "filename": "【ツバサ】バースデイ【授权转载】.mp3"
+  },
+  {
+    "title": "ビビデバ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ビビデバ【授权转载】.mp3",
+    "filename": "【ツバサ】ビビデバ【授权转载】.mp3"
+  },
+  {
+    "title": "ビビデバ（Full）",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ビビデバ（Full）【授权转载】.mp3",
+    "filename": "【ツバサ】ビビデバ（Full）【授权转载】.mp3"
+  },
+  {
+    "title": "ファントム",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ファントム【授权转载】.mp3",
+    "filename": "【ツバサ】ファントム【授权转载】.mp3"
+  },
+  {
+    "title": "フィクサー",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】フィクサー【授权转载】.mp3",
+    "filename": "【ツバサ】フィクサー【授权转载】.mp3"
+  },
+  {
+    "title": "フィナーレをあなたに。",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】フィナーレをあなたに。【授权转载】.mp3",
+    "filename": "【ツバサ】フィナーレをあなたに。【授权转载】.mp3"
+  },
+  {
+    "title": "フォニイ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】フォニイ【授权转载】.mp3",
+    "filename": "【ツバサ】フォニイ【授权转载】.mp3"
+  },
+  {
+    "title": "プラネテス (1)",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】プラネテス【授权转载】 (1).mp3",
+    "filename": "【ツバサ】プラネテス【授权转载】 (1).mp3"
+  },
+  {
+    "title": "プラネテス",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】プラネテス【授权转载】.mp3",
+    "filename": "【ツバサ】プラネテス【授权转载】.mp3"
+  },
+  {
+    "title": "プレイ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】プレイ【授权转载】.mp3",
+    "filename": "【ツバサ】プレイ【授权转载】.mp3"
+  },
+  {
+    "title": "プロトタイプ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】プロトタイプ【授权转载】.mp3",
+    "filename": "【ツバサ】プロトタイプ【授权转载】.mp3"
+  },
+  {
+    "title": "プロポーズ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】プロポーズ【授权转载】.mp3",
+    "filename": "【ツバサ】プロポーズ【授权转载】.mp3"
+  },
+  {
+    "title": "マシュマロ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】マシュマロ【授权转载】.mp3",
+    "filename": "【ツバサ】マシュマロ【授权转载】.mp3"
+  },
+  {
+    "title": "メーデー",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】メーデー【授权转载】.mp3",
+    "filename": "【ツバサ】メーデー【授权转载】.mp3"
+  },
+  {
+    "title": "モニタリング",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】モニタリング【授权转载】.mp3",
+    "filename": "【ツバサ】モニタリング【授权转载】.mp3"
+  },
+  {
+    "title": "ヤミタイガール",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ヤミタイガール【授权转载】.mp3",
+    "filename": "【ツバサ】ヤミタイガール【授权转载】.mp3"
+  },
+  {
+    "title": "ライラック",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ライラック【授权转载】.mp3",
+    "filename": "【ツバサ】ライラック【授权转载】.mp3"
+  },
+  {
+    "title": "リアライズ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】リアライズ【授权转载】.mp3",
+    "filename": "【ツバサ】リアライズ【授权转载】.mp3"
+  },
+  {
+    "title": "ロミオとシンデレラ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ロミオとシンデレラ【授权转载】.mp3",
+    "filename": "【ツバサ】ロミオとシンデレラ【授权转载】.mp3"
+  },
+  {
+    "title": "ロータスイーター",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ロータスイーター【授权转载】.mp3",
+    "filename": "【ツバサ】ロータスイーター【授权转载】.mp3"
+  },
+  {
+    "title": "ワーストリグレット",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ワーストリグレット【授权转载】.mp3",
+    "filename": "【ツバサ】ワーストリグレット【授权转载】.mp3"
+  },
+  {
+    "title": "ワールド・ランプシェード [reunion]",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ワールド・ランプシェード [reunion]【授权转载】.mp3",
+    "filename": "【ツバサ】ワールド・ランプシェード [reunion]【授权转载】.mp3"
+  },
+  {
+    "title": "ヴァニタス",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】ヴァニタス【授权转载】.mp3",
+    "filename": "【ツバサ】ヴァニタス【授权转载】.mp3"
+  },
+  {
+    "title": "万物流転",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】万物流転【授权转载】.mp3",
+    "filename": "【ツバサ】万物流転【授权转载】.mp3"
+  },
+  {
+    "title": "乙女解剖（TeddyLoid Alllies Remix）",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】乙女解剖（TeddyLoid Alllies Remix）【授权转载】.mp3",
+    "filename": "【ツバサ】乙女解剖（TeddyLoid Alllies Remix）【授权转载】.mp3"
+  },
+  {
+    "title": "仮面",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】仮面【授权转载】.mp3",
+    "filename": "【ツバサ】仮面【授权转载】.mp3"
+  },
+  {
+    "title": "右肩の蝶",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】右肩の蝶【授权转载】.mp3",
+    "filename": "【ツバサ】右肩の蝶【授权转载】.mp3"
+  },
+  {
+    "title": "夜もすがら君想ふ",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】夜もすがら君想ふ【授权转载】.mp3",
+    "filename": "【ツバサ】夜もすがら君想ふ【授权转载】.mp3"
+  },
+  {
+    "title": "大脳的なランデブー",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】大脳的なランデブー【授权转载】.mp3",
+    "filename": "【ツバサ】大脳的なランデブー【授权转载】.mp3"
+  },
+  {
+    "title": "天才ロック",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】天才ロック【授权转载】.mp3",
+    "filename": "【ツバサ】天才ロック【授权转载】.mp3"
+  },
+  {
+    "title": "恋愛裁判",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】恋愛裁判【授权转载】.mp3",
+    "filename": "【ツバサ】恋愛裁判【授权转载】.mp3"
+  },
+  {
+    "title": "月陽",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】月陽【授权转载】.mp3",
+    "filename": "【ツバサ】月陽【授权转载】.mp3"
+  },
+  {
+    "title": "東京は夜",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】東京は夜【授权转载】.mp3",
+    "filename": "【ツバサ】東京は夜【授权转载】.mp3"
+  },
+  {
+    "title": "構造色",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】構造色【授权转载】.mp3",
+    "filename": "【ツバサ】構造色【授权转载】.mp3"
+  },
+  {
+    "title": "渇愛論II",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】渇愛論II【授权转载】.mp3",
+    "filename": "【ツバサ】渇愛論II【授权转载】.mp3"
+  },
+  {
+    "title": "物の怪の類",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】物の怪の類【授权转载】.mp3",
+    "filename": "【ツバサ】物の怪の類【授权转载】.mp3"
+  },
+  {
+    "title": "白海に沈む",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】白海に沈む【授权转载】.mp3",
+    "filename": "【ツバサ】白海に沈む【授权转载】.mp3"
+  },
+  {
+    "title": "眼差し",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】眼差し【授权转载】.mp3",
+    "filename": "【ツバサ】眼差し【授权转载】.mp3"
+  },
+  {
+    "title": "絶頂讃歌",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】絶頂讃歌【授权转载】.mp3",
+    "filename": "【ツバサ】絶頂讃歌【授权转载】.mp3"
+  },
+  {
+    "title": "鬼ノ宴",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】鬼ノ宴【授权转载】.mp3",
+    "filename": "【ツバサ】鬼ノ宴【授权转载】.mp3"
+  },
+  {
+    "title": "𝐴𝑛𝑔𝑒𝑙",
+    "src": "https://raw.githubusercontent.com/WY-0709/tsubasa-guide/main/assets/music/【ツバサ】𝐴𝑛𝑔𝑒𝑙【授权转载】.mp3",
+    "filename": "【ツバサ】𝐴𝑛𝑔𝑒𝑙【授权转载】.mp3"
+  }
+];
+
+    (function() {
+      const audio = document.getElementById('audioEl');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const progress = document.getElementById('playerProgress');
+      const progressBar = document.getElementById('playerProgressBar');
+      const titleEl = document.getElementById('playerTitle');
+      const indexEl = document.getElementById('playerIndex');
+      const playlistToggle = document.getElementById('playlistToggle');
+      const playlistEl = document.getElementById('playerPlaylist');
+      const playlistList = document.getElementById('playlistList');
+      const player = document.getElementById('musicPlayer');
+
+      if (!PLAYLIST || PLAYLIST.length === 0) {
+        player.innerHTML = '<div class="music-player-empty">暂无歌曲文件</div>';
+        return;
+      }
+
+      let currentIndex = 0;
+      let isPlaying = false;
+
+      function renderPlaylist() {
+        playlistList.innerHTML = '';
+        PLAYLIST.forEach((song, idx) => {
+          const li = document.createElement('li');
+          li.textContent = song.title;
+          li.dataset.index = idx;
+          if (idx === currentIndex) li.classList.add('active');
+          li.addEventListener('click', () => loadSong(idx, true));
+          playlistList.appendChild(li);
+        });
+      }
+
+      function updateUI() {
+        const song = PLAYLIST[currentIndex];
+        titleEl.textContent = song.title;
+        indexEl.textContent = (currentIndex + 1) + ' / ' + PLAYLIST.length;
+        renderPlaylist();
+        playlistList.querySelectorAll('li').forEach((li, idx) => {
+          if (idx === currentIndex) {
+            li.classList.add('active');
+            li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          } else {
+            li.classList.remove('active');
+          }
+        });
+      }
+
+      function loadSong(index, autoPlay) {
+        currentIndex = index;
+        audio.src = PLAYLIST[currentIndex].src;
+        audio.load();
+        updateUI();
+        if (autoPlay) {
+          playAudio();
+        } else {
+          pauseAudio();
+        }
+      }
+
+      function playAudio() {
+        audio.play().then(() => {
+          isPlaying = true;
+          player.classList.add('playing');
+          playPauseBtn.textContent = '⏸';
+        }).catch(() => {
+          // Autoplay blocked or other issue
+        });
+      }
+
+      function pauseAudio() {
+        audio.pause();
+        isPlaying = false;
+        player.classList.remove('playing');
+        playPauseBtn.textContent = '▶';
+      }
+
+      function togglePlay() {
+        if (!audio.src) loadSong(currentIndex, false);
+        if (isPlaying) pauseAudio(); else playAudio();
+      }
+
+      function nextSong() {
+        loadSong((currentIndex + 1) % PLAYLIST.length, isPlaying);
+      }
+
+      function prevSong() {
+        loadSong((currentIndex - 1 + PLAYLIST.length) % PLAYLIST.length, isPlaying);
+      }
+
+      playPauseBtn.addEventListener('click', togglePlay);
+      nextBtn.addEventListener('click', nextSong);
+      prevBtn.addEventListener('click', prevSong);
+
+      audio.addEventListener('ended', nextSong);
+      audio.addEventListener('timeupdate', () => {
+        if (audio.duration) {
+          progressBar.style.width = (audio.currentTime / audio.duration * 100) + '%';
+        }
+      });
+      progress.addEventListener('click', (e) => {
+        if (!audio.duration) return;
+        const rect = progress.getBoundingClientRect();
+        const pct = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = pct * audio.duration;
+      });
+
+      playlistToggle.addEventListener('click', () => {
+        const open = playlistEl.classList.toggle('open');
+        playlistToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        playlistToggle.textContent = open ? '📋 收起列表' : '📋 播放列表';
+      });
+
+      // Shuffle on first load
+      PLAYLIST.sort(() => Math.random() - 0.5);
+      renderPlaylist();
+      loadSong(0, false);
+    })();
+  </script>
+
 </body>
 </html>
