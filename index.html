@@ -245,16 +245,23 @@
       align-items: center;
       justify-content: center;
       background:
-        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 25%),
-        repeating-radial-gradient(
-          circle at center,
-          #1f1f1f 0 2px,
-          #2e2e2e 2px 4px
-        );
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 25%);
       box-shadow:
         0 5px 16px rgba(0,0,0,0.22),
         inset 0 1px 1px rgba(255,255,255,0.12);
       transition: transform 0.35s var(--ease-bounce), box-shadow 0.3s var(--ease-smooth);
+    }
+
+    .disc-grooves {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        circle at center,
+        #1f1f1f 0 2px,
+        #2e2e2e 2px 4px
+      );
+      pointer-events: none;
     }
 
     .disc::before {
@@ -265,6 +272,7 @@
       background: var(--disc-label, var(--red-500));
       opacity: 0.92;
       box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35);
+      z-index: 1;
     }
 
     .disc::after {
@@ -275,12 +283,12 @@
       border-radius: 50%;
       background: var(--cream);
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
-      z-index: 2;
+      z-index: 3;
     }
 
     .disc-icon {
       position: absolute;
-      z-index: 3;
+      z-index: 4;
       font-size: 1.15rem;
       line-height: 1;
       filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
@@ -310,6 +318,21 @@
         0 0 0 4px rgba(230, 57, 70, 0.15),
         inset 0 1px 1px rgba(255,255,255,0.15);
       outline: none;
+    }
+
+    .disc:hover .disc-grooves,
+    .disc:focus .disc-grooves,
+    .disc.active .disc-grooves {
+      animation: spin-record 2.2s linear infinite;
+    }
+
+    .disc.active .disc-grooves {
+      animation-duration: 1.6s;
+    }
+
+    @keyframes spin-record {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .disc:hover .disc-label,
@@ -881,38 +904,47 @@
   <aside class="sidebar">
     <nav class="disc-drawer" aria-label="章节导航">
       <button class="disc disc-home" data-target="overview" aria-label="返回目录">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎼</span>
         <span class="disc-label">目次</span>
       </button>
       <button class="disc" data-target="sec1" aria-label="基础热知识">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🔥</span>
         <span class="disc-label">基础热知识</span>
       </button>
       <button class="disc" data-target="sec2" aria-label="外貌穿搭">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">✨</span>
         <span class="disc-label">外貌穿搭</span>
       </button>
       <button class="disc" data-target="sec3" aria-label="性格生活">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🧠</span>
         <span class="disc-label">性格生活</span>
       </button>
       <button class="disc" data-target="sec4" aria-label="唱功音乐">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎤</span>
         <span class="disc-label">唱功音乐</span>
       </button>
       <button class="disc" data-target="sec5" aria-label="爱好杂学">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎮</span>
         <span class="disc-label">爱好杂学</span>
       </button>
       <button class="disc" data-target="sec6" aria-label="粉丝梗">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">💬</span>
         <span class="disc-label">粉丝梗</span>
       </button>
       <button class="disc" data-target="sec7" aria-label="入坑渠道">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🚀</span>
         <span class="disc-label">入坑渠道</span>
       </button>
       <button class="disc" data-target="sec8" aria-label="B站清单">
+        <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎬</span>
         <span class="disc-label">B站清单</span>
       </button>
@@ -1530,6 +1562,17 @@
         <div class="item-header"><span class="tag">冷知识</span> 「ミュージカル見に来たかと思った」</div>
         <div class="item-body">
           "我还以为来看音乐剧了"——形容他的solo不只是唱歌好，还有很强的戏剧感染力，能把人完全代入进去。
+        </div>
+      </article>
+
+      <article class="knowledge-item hot">
+        <div class="item-header"><span class="tag">热知识</span> 粉丝暗号 &amp; Greeting</div>
+        <div class="item-body">
+          <ul class="song-list">
+            <li><strong>弹幕常用：</strong>❤️🪽 / 🔥🪽 —— tsubasa推（粉丝）在直播间或评论区常见的组合暗号</li>
+            <li><strong>评论暗号：</strong>「翼を広げて」—— 象征一起展翅高飞，也是粉丝之间的默契留言</li>
+            <li><strong>开场 Greeting：</strong>可爱的「つばっちょ」是他常用的开场招呼</li>
+          </ul>
         </div>
       </article>
     </section>
