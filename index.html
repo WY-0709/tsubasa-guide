@@ -208,8 +208,69 @@
     .hero-hearts span:nth-child(3) { animation-delay: 0.6s; }
     .hero-hearts span:nth-child(4) { animation-delay: 0.9s; }
 
-    body.reading .cd-shelf {
+    body.reading .cd-shelf,
+    body.reading .side-decorations {
       display: none;
+    }
+
+    /* Side decorations for overview */
+    .side-decorations {
+      position: absolute;
+      right: 3%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 180px;
+      height: 420px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+    }
+
+    .side-vinyl {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 18%, rgba(30,30,30,0.06) 19%, rgba(30,30,30,0.06) 20%, transparent 21%),
+        radial-gradient(circle at 50% 50%, transparent 28%, rgba(30,30,30,0.05) 29%, rgba(30,30,30,0.05) 30%, transparent 31%),
+        radial-gradient(circle at 50% 50%, transparent 38%, rgba(30,30,30,0.04) 39%, rgba(30,30,30,0.04) 40%, transparent 41%),
+        radial-gradient(circle at 50% 50%, transparent 48%, rgba(30,30,30,0.03) 49%, rgba(30,30,30,0.03) 50%, transparent 51%);
+      animation: spin-slow 24s linear infinite;
+    }
+
+    .side-vinyl::after {
+      content: "";
+      position: absolute;
+      inset: 38%;
+      border-radius: 50%;
+      background: rgba(230, 57, 70, 0.12);
+      box-shadow: inset 0 0 0 6px rgba(255,255,255,0.6);
+    }
+
+    @keyframes spin-slow {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    .side-note {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.22;
+      filter: blur(0.3px);
+      animation: float-side 5s ease-in-out infinite;
+    }
+
+    .side-note:nth-child(1) { right: 20%; top: 8%; animation-delay: 0s; }
+    .side-note:nth-child(2) { right: 55%; top: 35%; font-size: 1.1rem; animation-delay: 1.5s; }
+    .side-note:nth-child(3) { right: 10%; top: 68%; font-size: 1.3rem; animation-delay: 3s; }
+
+    @keyframes float-side {
+      0%, 100% { transform: translateY(0) rotate(-5deg); opacity: 0.18; }
+      50% { transform: translateY(-14px) rotate(5deg); opacity: 0.28; }
     }
 
     body.overview .sidebar {
@@ -238,15 +299,15 @@
 
     /* CD shelf — 3D rotating album covers */
     .cd-shelf {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(4, 155px);
       gap: 18px;
+      justify-content: center;
+      justify-items: center;
       margin-top: 24px;
       padding: 10px 20px 20px;
       min-height: 180px;
       perspective: 1200px;
-      flex-wrap: wrap;
     }
 
     .cd-case {
@@ -293,6 +354,7 @@
     .cd-front {
       transform: rotateY(0deg);
       background: #1a1a1a;
+      transition: transform 0.55s var(--ease-bounce);
     }
 
     .cd-front img {
@@ -300,6 +362,20 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.55s var(--ease-bounce);
+    }
+
+    .cd-front::after {
+      content: "";
+      position: absolute;
+      inset: -5px;
+      border: 3px solid rgba(255,255,255,0.9);
+      border-radius: 13px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .cd-shine {
@@ -320,14 +396,13 @@
       transform: rotateY(90deg) translateZ(77px);
       width: 24px;
       left: 65px;
-      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      background: linear-gradient(180deg, #262626 0%, #171717 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
-      border-radius: 2px;
+      color: rgba(255,255,255,0.88);
+      border-radius: 0 2px 2px 0;
     }
 
     .cd-spine-text {
@@ -359,6 +434,18 @@
     .cd-case:focus {
       transform: rotateY(-15deg) rotateX(0deg) translateZ(45px) scale(1.08);
       z-index: 10;
+    }
+
+    .cd-case:hover .cd-front img,
+    .cd-case:focus .cd-front img,
+    .cd-case.active .cd-front img {
+      transform: scale(1.12);
+    }
+
+    .cd-case:hover .cd-front::after,
+    .cd-case:focus .cd-front::after,
+    .cd-case.active .cd-front::after {
+      opacity: 1;
     }
 
     .cd-case:hover .cd-shine,
@@ -1041,6 +1128,7 @@
       }
 
       .cd-shelf {
+        grid-template-columns: repeat(2, 100px);
         gap: 12px;
         margin-top: 18px;
         padding: 10px 12px 16px;
@@ -1052,6 +1140,8 @@
         height: 100px;
         transform: rotateY(-50deg) rotateX(2deg);
       }
+
+      .side-decorations { display: none; }
 
       .cd-case::after {
         inset: -10px;
@@ -1111,17 +1201,19 @@
       h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-bottom: 8px; }
       .subtitle { font-size: clamp(0.85rem, 1.8vw, 0.95rem); }
       .hero-hearts { margin-top: 10px; font-size: 1.1rem; }
-      .cd-shelf { margin-top: 14px; min-height: 150px; }
+      .cd-shelf { grid-template-columns: repeat(4, 135px); gap: 14px; margin-top: 14px; min-height: 150px; }
       .cd-case { width: 135px; height: 135px; }
       .cd-spine { transform: rotateY(90deg) translateZ(67px); width: 22px; left: 56px; }
       .cd-spine-text { font-size: 0.7rem; }
+      .side-vinyl { width: 130px; height: 130px; }
     }
 
     @media (max-height: 680px) and (min-width: 801px) {
+      .cd-shelf { grid-template-columns: repeat(4, 120px); gap: 12px; }
       .cd-case { width: 120px; height: 120px; }
       .cd-spine { transform: rotateY(90deg) translateZ(60px); width: 20px; left: 50px; }
       .cd-spine-text { font-size: 0.62rem; }
-      .cd-shelf { gap: 14px; }
+      .side-vinyl { width: 110px; height: 110px; }
     }
   </style>
 </head>
@@ -1287,6 +1379,13 @@
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
+      </div>
+
+      <div class="side-decorations" aria-hidden="true">
+        <span class="side-note">🎵</span>
+        <span class="side-note">🎶</span>
+        <span class="side-note">❤️</span>
+        <span class="side-vinyl"></span>
       </div>
     </header>
 
