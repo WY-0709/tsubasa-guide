@@ -216,11 +216,11 @@
 
     /* Music player */
     .music-player {
-      position: absolute;
-      right: 28px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 260px;
+      grid-area: player;
+      position: static;
+      transform: none;
+      width: 100%;
+      align-self: center;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -232,7 +232,7 @@
       transition: transform 0.35s var(--ease-bounce), box-shadow 0.35s var(--ease-smooth);
     }
     .music-player:hover {
-      transform: translateY(-50%) translateY(-4px);
+      transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
     }
     .music-player-header {
@@ -282,6 +282,12 @@
     }
     .music-player.playing .player-vinyl {
       animation: spin 4s linear infinite;
+    }
+    .music-player.loading .player-vinyl {
+      animation: spin 1.2s linear infinite;
+    }
+    .music-player.loading .player-vinyl::after {
+      content: "💿";
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -419,7 +425,11 @@
       padding: 20px 0;
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1280px) {
+      .main-area {
+        display: block;
+        padding-right: 28px;
+      }
       .music-player {
         position: relative;
         right: auto;
@@ -449,15 +459,7 @@
 
     /* Side decorations for overview */
     .side-decorations {
-      position: absolute;
-      right: 3%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 180px;
-      height: 420px;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.55;
+      display: none;
     }
 
     .side-vinyl {
@@ -519,7 +521,7 @@
     }
 
     body.overview .main-area {
-      padding: 0;
+      padding: 0 28px;
     }
 
     body.overview .header {
@@ -858,13 +860,22 @@
     .main-area {
       position: relative;
       z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "hero player"
+        "content content";
+      gap: 24px 28px;
+      align-items: start;
       margin-left: 230px;
       min-height: 100vh;
       padding: 32px 28px 60px;
-      max-width: calc(960px + 230px);
+      max-width: 1320px;
     }
 
     header {
+      grid-area: hero;
       text-align: center;
       padding: 48px 20px 36px;
       margin-bottom: 24px;
@@ -873,6 +884,7 @@
 
     /* Sections stage */
     .sections-stage {
+      grid-area: content;
       display: none;
     }
 
@@ -1621,29 +1633,29 @@
       </div>
 
 
-      <div class="music-player" id="musicPlayer" aria-label="音乐播放器">
-        <div class="music-player-header"><span>🎧</span> つばさの歌</div>
-        <div class="player-vinyl" aria-hidden="true"></div>
-        <div class="player-track">
-          <div class="player-track-title" id="playerTitle">点击播放 ▶</div>
-          <div class="player-track-index" id="playerIndex">0 / 69</div>
-        </div>
-        <div class="player-progress" id="playerProgress" aria-hidden="true">
-          <div class="player-progress-bar" id="playerProgressBar"></div>
-        </div>
-        <div class="player-controls">
-          <button class="player-btn" id="prevBtn" aria-label="上一首">⏮</button>
-          <button class="player-btn play-pause" id="playPauseBtn" aria-label="播放/暂停">▶</button>
-          <button class="player-btn" id="nextBtn" aria-label="下一首">⏭</button>
-        </div>
-        <button class="player-playlist-toggle" id="playlistToggle" aria-expanded="false" aria-controls="playerPlaylist">📋 播放列表</button>
-        <div class="player-playlist" id="playerPlaylist" aria-label="播放列表">
-          <ul id="playlistList"></ul>
-        </div>
-        <audio id="audioEl" preload="none"></audio>
-      </div>
-
     </header>
+
+    <div class="music-player" id="musicPlayer" aria-label="音乐播放器">
+      <div class="music-player-header"><span>🎧</span> つばさの歌</div>
+      <div class="player-vinyl" aria-hidden="true"></div>
+      <div class="player-track">
+        <div class="player-track-title" id="playerTitle">点击播放 ▶</div>
+        <div class="player-track-index" id="playerIndex">0 / 69</div>
+      </div>
+      <div class="player-progress" id="playerProgress" aria-hidden="true">
+        <div class="player-progress-bar" id="playerProgressBar"></div>
+      </div>
+      <div class="player-controls">
+        <button class="player-btn" id="prevBtn" aria-label="上一首">⏮</button>
+        <button class="player-btn play-pause" id="playPauseBtn" aria-label="播放/暂停">▶</button>
+        <button class="player-btn" id="nextBtn" aria-label="下一首">⏭</button>
+      </div>
+      <button class="player-playlist-toggle" id="playlistToggle" aria-expanded="false" aria-controls="playerPlaylist">📋 播放列表</button>
+      <div class="player-playlist" id="playerPlaylist" aria-label="播放列表">
+        <ul id="playlistList"></ul>
+      </div>
+      <audio id="audioEl" preload="none"></audio>
+    </div>
 
     <main class="sections-stage" aria-live="polite">
 
@@ -3029,6 +3041,19 @@
 
       let currentIndex = 0;
       let isPlaying = false;
+      let isLoading = false;
+
+      function setLoading(loading) {
+        isLoading = loading;
+        player.classList.toggle('loading', loading);
+        if (loading) {
+          titleEl.textContent = '加载中… ' + PLAYLIST[currentIndex].title;
+          playPauseBtn.textContent = '◌';
+        } else {
+          updateUI();
+          playPauseBtn.textContent = isPlaying ? '⏸' : '▶';
+        }
+      }
 
       function renderPlaylist() {
         playlistList.innerHTML = '';
@@ -3063,6 +3088,7 @@
         audio.load();
         updateUI();
         if (autoPlay) {
+          setLoading(true);
           playAudio();
         } else {
           pauseAudio();
@@ -3070,12 +3096,21 @@
       }
 
       function playAudio() {
+        setLoading(true);
         audio.play().then(() => {
           isPlaying = true;
+          isLoading = false;
           player.classList.add('playing');
+          player.classList.remove('loading');
           playPauseBtn.textContent = '⏸';
-        }).catch(() => {
-          // Autoplay blocked or other issue
+          updateUI();
+        }).catch((err) => {
+          isLoading = false;
+          player.classList.remove('loading');
+          playPauseBtn.textContent = '▶';
+          if (err.name !== 'NotAllowedError') {
+            titleEl.textContent = '加载失败，请重试';
+          }
         });
       }
 
