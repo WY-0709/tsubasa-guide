@@ -208,8 +208,7 @@
     .hero-hearts span:nth-child(3) { animation-delay: 0.6s; }
     .hero-hearts span:nth-child(4) { animation-delay: 0.9s; }
 
-    body.reading .cd-shelf,
-    body.reading .welcome-banner {
+    body.reading .cd-shelf {
       display: none;
     }
 
@@ -219,14 +218,22 @@
       pointer-events: none;
     }
 
-    /* Welcome banner */
-    .welcome-banner {
-      display: block;
-      max-width: min(660px, 92vw);
-      height: auto;
-      margin: 28px auto 0;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.08));
-      border-radius: 999px;
+    /* Overview layout: try to keep everything on one screen */
+    body.overview {
+      overflow: hidden;
+    }
+
+    body.overview .main-area {
+      padding: 0;
+    }
+
+    body.overview .header {
+      min-height: 100vh;
+      padding: 18px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     /* CD shelf — 3D rotating album covers */
@@ -234,18 +241,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 28px;
-      margin-top: 40px;
-      padding: 20px 24px 30px;
-      min-height: 240px;
+      gap: 18px;
+      margin-top: 24px;
+      padding: 10px 20px 20px;
+      min-height: 180px;
       perspective: 1200px;
       flex-wrap: wrap;
     }
 
     .cd-case {
       position: relative;
-      width: 170px;
-      height: 170px;
+      width: 155px;
+      height: 155px;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -263,7 +270,7 @@
     .cd-case::after {
       content: "";
       position: absolute;
-      inset: -18px;
+      inset: -14px;
       z-index: -1;
     }
 
@@ -310,9 +317,9 @@
     }
 
     .cd-spine {
-      transform: rotateY(90deg) translateZ(85px);
-      width: 26px;
-      left: 72px;
+      transform: rotateY(90deg) translateZ(77px);
+      width: 24px;
+      left: 65px;
       background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
       display: flex;
       flex-direction: column;
@@ -350,7 +357,7 @@
 
     .cd-case:hover,
     .cd-case:focus {
-      transform: rotateY(-15deg) rotateX(0deg) translateZ(50px) scale(1.08);
+      transform: rotateY(-15deg) rotateX(0deg) translateZ(45px) scale(1.08);
       z-index: 10;
     }
 
@@ -360,7 +367,7 @@
     }
 
     .cd-case.active {
-      transform: rotateY(0deg) translateZ(140px) scale(1.18);
+      transform: rotateY(0deg) translateZ(120px) scale(1.16);
       z-index: 20;
       transition: transform 0.7s var(--ease-bounce), z-index 0s;
     }
@@ -454,17 +461,21 @@
 
     .disc-label {
       position: absolute;
-      left: 68px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%) translateY(2px);
       white-space: nowrap;
-      font-size: 0.82rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--ink-soft);
       opacity: 0;
       transition: opacity 0.25s var(--ease-smooth), transform 0.25s var(--ease-smooth);
       pointer-events: none;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.92);
+      padding: 3px 9px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      z-index: 10;
     }
 
     .disc:hover,
@@ -495,7 +506,7 @@
     .disc:hover .disc-label,
     .disc:focus .disc-label {
       opacity: 1;
-      transform: translateY(-50%) translateX(4px);
+      transform: translateX(-50%) translateY(0);
     }
 
     .disc.active {
@@ -1024,50 +1035,50 @@
         max-width: 720px;
       }
 
+      body.overview .header {
+        min-height: 100svh;
+        padding: 14px 16px 20px;
+      }
+
       .cd-shelf {
-        gap: 14px;
-        margin-top: 22px;
-        padding: 16px 14px 22px;
-        min-height: 160px;
+        gap: 12px;
+        margin-top: 18px;
+        padding: 10px 12px 16px;
+        min-height: 140px;
       }
 
       .cd-case {
-        width: 115px;
-        height: 115px;
+        width: 100px;
+        height: 100px;
         transform: rotateY(-50deg) rotateX(2deg);
       }
 
       .cd-case::after {
-        inset: -12px;
+        inset: -10px;
       }
 
       .cd-spine {
-        width: 20px;
-        left: 47px;
-        transform: rotateY(90deg) translateZ(58px);
+        width: 18px;
+        left: 41px;
+        transform: rotateY(90deg) translateZ(50px);
       }
 
       .cd-spine-text {
-        font-size: 0.62rem;
-        letter-spacing: 0.1em;
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
       }
 
       .cd-case:hover,
       .cd-case:focus {
-        transform: rotateY(-12deg) rotateX(0deg) translateZ(30px) scale(1.08);
+        transform: rotateY(-12deg) rotateX(0deg) translateZ(25px) scale(1.08);
       }
 
       .cd-case.active {
-        transform: rotateY(0deg) translateZ(70px) scale(1.12);
+        transform: rotateY(0deg) translateZ(60px) scale(1.12);
       }
 
       .cd-back::before {
-        font-size: 2rem;
-      }
-
-      .welcome-banner {
-        max-width: 92vw;
-        margin-top: 18px;
+        font-size: 1.8rem;
       }
 
       .scroll-top {
@@ -1093,6 +1104,24 @@
       h1 { font-size: 1.8rem; }
       .section-title { font-size: 1.15rem; }
       .member-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-height: 760px) and (min-width: 801px) {
+      body.overview .header { padding: 10px 20px 16px; }
+      h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-bottom: 8px; }
+      .subtitle { font-size: clamp(0.85rem, 1.8vw, 0.95rem); }
+      .hero-hearts { margin-top: 10px; font-size: 1.1rem; }
+      .cd-shelf { margin-top: 14px; min-height: 150px; }
+      .cd-case { width: 135px; height: 135px; }
+      .cd-spine { transform: rotateY(90deg) translateZ(67px); width: 22px; left: 56px; }
+      .cd-spine-text { font-size: 0.7rem; }
+    }
+
+    @media (max-height: 680px) and (min-width: 801px) {
+      .cd-case { width: 120px; height: 120px; }
+      .cd-spine { transform: rotateY(90deg) translateZ(60px); width: 20px; left: 50px; }
+      .cd-spine-text { font-size: 0.62rem; }
+      .cd-shelf { gap: 14px; }
     }
   </style>
 </head>
@@ -1150,10 +1179,10 @@
         <span class="disc-icon">🚀</span>
         <span class="disc-label">入坑渠道</span>
       </button>
-      <button class="disc" data-target="sec8" aria-label="B站清单">
+      <button class="disc" data-target="sec8" aria-label="安利清单">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎬</span>
-        <span class="disc-label">B站清单</span>
+        <span class="disc-label">安利清单</span>
       </button>
     </nav>
   </aside>
@@ -1248,19 +1277,17 @@
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
 
-        <button class="cd-case" data-target="sec8" aria-label="B站清单">
+        <button class="cd-case" data-target="sec8" aria-label="安利清单">
           <div class="cd-face cd-front">
-            <img src="assets/cover-8.png" alt="B站清单封面" loading="lazy">
+            <img src="assets/cover-8.png" alt="安利清单封面" loading="lazy">
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">B站清单</span>
+            <span class="cd-spine-text">安利清单</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
       </div>
-
-      <img src="assets/welcome-banner.png" alt="冷热知识大全 · B站安利清单 · 一篇就够了 · 给所有想认识他的人" class="welcome-banner" loading="eager">
     </header>
 
     <main class="sections-stage" aria-live="polite">
@@ -1962,11 +1989,11 @@
       </article>
     </section>
 
-    <!-- 8. B站安利观看清单 -->
+    <!-- 8. 安利观看清单 -->
     <section class="section" id="sec8">
       <h2 class="section-title">
         <span class="icon">🎬</span>
-        八、B站安利观看清单
+        八、安利观看清单
         <span class="count">点击直接跳转</span>
       </h2>
 
@@ -2150,7 +2177,7 @@
     </main>
 
     <footer class="footer">
-      <strong>ツバサ入坑指南</strong> · 冷热知识大全 · B站安利清单<br>
+      <strong>ツバサ入坑指南</strong> · 冷热知识大全 · 安利清单<br>
       一篇入坑不亏 ❤️ 愿更多人发现这颗红色星星
     </footer>
   </div>
