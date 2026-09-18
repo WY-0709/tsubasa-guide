@@ -367,6 +367,27 @@
       background: var(--red-600);
       transform: scale(1.1);
     }
+    .player-volume {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+    .player-volume span {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .player-volume input[type="range"] {
+      flex: 1;
+      max-width: 140px;
+      height: 5px;
+      accent-color: var(--red-500);
+      background: var(--red-100);
+      border-radius: 999px;
+      cursor: pointer;
+    }
     .player-playlist-toggle {
       width: 100%;
       padding: 8px 12px;
@@ -1249,7 +1270,7 @@
       color: var(--ink-muted);
       font-size: 0.9rem;
       margin-top: 52px;
-      padding: 28px 20px;
+      padding: 28px 20px 28px 64px;
       line-height: 1.9;
     }
 
@@ -1305,6 +1326,46 @@
     }
 
     .scroll-top:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .float-play-btn {
+      position: fixed;
+      right: 24px;
+      bottom: 80px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red-500), var(--red-600));
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s var(--ease-bounce);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .float-play-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .float-play-btn:hover,
+    .float-play-btn:focus {
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: var(--shadow-lg);
+      outline: none;
+    }
+
+    .float-play-btn:active {
       transform: translateY(1px) scale(0.98);
     }
 
@@ -1460,13 +1521,19 @@
         bottom: 130px;
       }
 
+      .float-play-btn {
+        right: 16px;
+        bottom: 184px;
+      }
+
       .footer {
         background: transparent;
         border: none;
         box-shadow: none;
-        padding: 24px 16px 16px;
+        padding: 24px 16px 16px 48px;
         margin-top: 24px;
         font-size: 0.82rem;
+        text-align: center;
       }
     }
 
@@ -1691,6 +1758,10 @@
         <button class="player-btn" id="prevBtn" aria-label="上一首">⏮</button>
         <button class="player-btn play-pause" id="playPauseBtn" aria-label="播放/暂停">▶</button>
         <button class="player-btn" id="nextBtn" aria-label="下一首">⏭</button>
+      </div>
+      <div class="player-volume">
+        <span id="volumeIcon">🔊</span>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="音量">
       </div>
       <button class="player-playlist-toggle" id="playlistToggle" aria-expanded="false" aria-controls="playerPlaylist">📋 播放列表</button>
       <div class="player-playlist" id="playerPlaylist" aria-label="播放列表">
@@ -2592,6 +2663,7 @@
   </div>
 
   <button class="scroll-top" id="scrollTop" aria-label="回到顶部">↑</button>
+  <button class="float-play-btn" id="floatPlayBtn" aria-label="播放/暂停">▶</button>
 
   <script>
     // View switcher: disc drawer (overview) vs section reader
@@ -3075,6 +3147,9 @@
       const playlistEl = document.getElementById('playerPlaylist');
       const playlistList = document.getElementById('playlistList');
       const player = document.getElementById('musicPlayer');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const volumeIcon = document.getElementById('volumeIcon');
+      const floatPlayBtn = document.getElementById('floatPlayBtn');
 
       if (!PLAYLIST || PLAYLIST.length === 0) {
         player.innerHTML = '<div class="music-player-empty">暂无歌曲文件</div>';
@@ -3094,6 +3169,29 @@
         } else {
           updateUI();
           playPauseBtn.textContent = isPlaying ? '⏸' : '▶';
+          updateFloatButton();
+        }
+      }
+
+      function updateVolumeIcon(vol) {
+        if (vol === 0 || audio.muted) {
+          volumeIcon.textContent = '🔇';
+        } else if (vol < 0.5) {
+          volumeIcon.textContent = '🔉';
+        } else {
+          volumeIcon.textContent = '🔊';
+        }
+      }
+
+      function updateFloatButton() {
+        floatPlayBtn.textContent = isPlaying ? '⏸' : '▶';
+      }
+
+      function updateFloatVisibility() {
+        if (window.scrollY > 200 && audio.src) {
+          floatPlayBtn.classList.add('visible');
+        } else {
+          floatPlayBtn.classList.remove('visible');
         }
       }
 
@@ -3145,11 +3243,13 @@
           player.classList.add('playing');
           player.classList.remove('loading');
           playPauseBtn.textContent = '⏸';
+          updateFloatButton();
           updateUI();
         }).catch((err) => {
           isLoading = false;
           player.classList.remove('loading');
           playPauseBtn.textContent = '▶';
+          updateFloatButton();
           if (err.name !== 'NotAllowedError') {
             titleEl.textContent = '加载失败，请重试';
           }
@@ -3161,6 +3261,7 @@
         isPlaying = false;
         player.classList.remove('playing');
         playPauseBtn.textContent = '▶';
+        updateFloatButton();
       }
 
       function togglePlay() {
@@ -3177,8 +3278,21 @@
       }
 
       playPauseBtn.addEventListener('click', togglePlay);
+      floatPlayBtn.addEventListener('click', togglePlay);
       nextBtn.addEventListener('click', nextSong);
       prevBtn.addEventListener('click', prevSong);
+
+      volumeSlider.addEventListener('input', (e) => {
+        const vol = parseFloat(e.target.value);
+        audio.volume = vol;
+        audio.muted = false;
+        updateVolumeIcon(vol);
+      });
+      audio.addEventListener('volumechange', () => {
+        volumeSlider.value = audio.muted ? 0 : audio.volume;
+        updateVolumeIcon(volumeSlider.value);
+      });
+      window.addEventListener('scroll', updateFloatVisibility, { passive: true });
 
       audio.addEventListener('ended', nextSong);
       audio.addEventListener('timeupdate', () => {
@@ -3203,6 +3317,9 @@
       PLAYLIST.sort(() => Math.random() - 0.5);
       renderPlaylist();
       loadSong(0, false);
+      audio.volume = 1;
+      updateVolumeIcon(1);
+      updateFloatVisibility();
     })();
   </script>
 
