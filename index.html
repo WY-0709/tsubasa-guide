@@ -2735,16 +2735,6 @@
       });
     });
 
-    // Optional: allow section title clicks in reading mode to return to overview
-    sections.forEach(section => {
-      const title = section.querySelector('.section-title');
-      title.addEventListener('click', () => {
-        if (document.body.classList.contains('reading')) {
-          showOverview();
-        }
-      });
-    });
-
     // Scroll reveal animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
