@@ -1329,47 +1329,6 @@
       transform: translateY(1px) scale(0.98);
     }
 
-    .float-play-btn {
-      position: fixed;
-      right: 24px;
-      bottom: 100px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffd700, #ffb700);
-      color: #5a3a00;
-      border: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(255, 183, 0, 0.35);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: all 0.3s var(--ease-bounce);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .float-play-btn.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .float-play-btn:hover,
-    .float-play-btn:focus {
-      background: linear-gradient(135deg, #ffdf33, #ffc107);
-      transform: translateY(-3px) scale(1.08);
-      box-shadow: 0 10px 24px rgba(255, 183, 0, 0.45);
-      outline: none;
-    }
-
-    .float-play-btn:active {
-      transform: translateY(1px) scale(0.98);
-    }
-
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *,
@@ -1520,11 +1479,6 @@
       .scroll-top {
         right: 16px;
         bottom: 130px;
-      }
-
-      .float-play-btn {
-        right: 16px;
-        bottom: 200px;
       }
 
       .footer {
@@ -2663,7 +2617,6 @@
   </div>
 
   <button class="scroll-top" id="scrollTop" aria-label="回到顶部">↑</button>
-  <button class="float-play-btn" id="floatPlayBtn" aria-label="播放/暂停">▶</button>
 
   <script>
     // View switcher: disc drawer (overview) vs section reader
@@ -3140,7 +3093,6 @@
       const player = document.getElementById('musicPlayer');
       const volumeSlider = document.getElementById('volumeSlider');
       const volumeIcon = document.getElementById('volumeIcon');
-      const floatPlayBtn = document.getElementById('floatPlayBtn');
 
       if (!PLAYLIST || PLAYLIST.length === 0) {
         player.innerHTML = '<div class="music-player-empty">暂无歌曲文件</div>';
@@ -3160,7 +3112,6 @@
         } else {
           updateUI();
           playPauseBtn.textContent = isPlaying ? '⏸' : '▶';
-          updateFloatButton();
         }
       }
 
@@ -3171,18 +3122,6 @@
           volumeIcon.textContent = '🔉';
         } else {
           volumeIcon.textContent = '🔊';
-        }
-      }
-
-      function updateFloatButton() {
-        floatPlayBtn.textContent = isPlaying ? '⏸' : '▶';
-      }
-
-      function updateFloatVisibility() {
-        if (window.scrollY > 200 && audio.src) {
-          floatPlayBtn.classList.add('visible');
-        } else {
-          floatPlayBtn.classList.remove('visible');
         }
       }
 
@@ -3236,13 +3175,11 @@
           player.classList.add('playing');
           player.classList.remove('loading');
           playPauseBtn.textContent = '⏸';
-          updateFloatButton();
           updateUI();
         }).catch((err) => {
           isLoading = false;
           player.classList.remove('loading');
           playPauseBtn.textContent = '▶';
-          updateFloatButton();
           if (err.name !== 'NotAllowedError') {
             titleEl.textContent = '加载失败，请重试';
           }
@@ -3254,7 +3191,6 @@
         isPlaying = false;
         player.classList.remove('playing');
         playPauseBtn.textContent = '▶';
-        updateFloatButton();
       }
 
       function togglePlay() {
@@ -3271,7 +3207,6 @@
       }
 
       playPauseBtn.addEventListener('click', togglePlay);
-      floatPlayBtn.addEventListener('click', togglePlay);
       nextBtn.addEventListener('click', nextSong);
       prevBtn.addEventListener('click', prevSong);
 
@@ -3285,7 +3220,6 @@
         volumeSlider.value = audio.muted ? 0 : audio.volume;
         updateVolumeIcon(volumeSlider.value);
       });
-      window.addEventListener('scroll', updateFloatVisibility, { passive: true });
 
       audio.addEventListener('ended', nextSong);
       audio.addEventListener('timeupdate', () => {
@@ -3313,7 +3247,6 @@
       audio.volume = 0.5;
       volumeSlider.value = 0.5;
       updateVolumeIcon(0.5);
-      updateFloatVisibility();
     })();
   </script>
 
