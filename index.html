@@ -2711,7 +2711,11 @@
       const disc = document.querySelector(`.disc[data-target="${targetSection.id}"]`);
       if (disc) disc.classList.add('active');
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      requestAnimationFrame(() => {
+        const offset = 24;
+        const top = targetSection.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      });
     }
 
     function showOverview() {
