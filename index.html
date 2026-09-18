@@ -1331,15 +1331,15 @@
 
     .float-play-btn {
       position: fixed;
-      right: 24px;
-      bottom: 80px;
-      width: 44px;
-      height: 44px;
+      left: 24px;
+      bottom: 24px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--red-500), var(--red-600));
-      color: #fff;
-      border: none;
-      font-size: 1.1rem;
+      background: #fff;
+      color: var(--red-600);
+      border: 2px solid var(--red-200);
+      font-size: 1rem;
       cursor: pointer;
       box-shadow: var(--shadow-md);
       opacity: 0;
@@ -1360,6 +1360,7 @@
 
     .float-play-btn:hover,
     .float-play-btn:focus {
+      background: var(--red-50);
       transform: translateY(-3px) scale(1.08);
       box-shadow: var(--shadow-lg);
       outline: none;
@@ -1522,8 +1523,8 @@
       }
 
       .float-play-btn {
-        right: 16px;
-        bottom: 184px;
+        left: 16px;
+        bottom: 130px;
       }
 
       .footer {
