@@ -143,6 +143,32 @@
       50% { opacity: 1; transform: scale(1.2); }
     }
 
+    /* Full-page background */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .page-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 0.32;
+    }
+
+    .page-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 250, 248, 0.72) 0%, rgba(255, 250, 248, 0.52) 100%);
+    }
+
+    .hero-bg { display: none !important; }
+
     /* Header */
     header {
       text-align: center;
@@ -1580,6 +1606,10 @@
     <span class="floating-heart">❤️</span>
   </div>
 
+  <div class="page-bg" aria-hidden="true">
+    <img src="assets/hero-bg.webp" alt="">
+  </div>
+
   <aside class="sidebar">
     <nav class="disc-drawer" aria-label="章节导航">
       <button class="disc disc-home" data-target="overview" aria-label="返回目录">
@@ -1632,9 +1662,6 @@
 
   <div class="main-area">
     <header class="header">
-      <div class="hero-bg" aria-hidden="true">
-        <img src="assets/hero-bg.webp" alt="" loading="lazy">
-      </div>
       <div class="hero-badge">2026.9 更新版</div>
       <h1>❤️ ツバサ入坑指南</h1>
       <p class="subtitle">欢迎新朋友 ♡ 从这里开始认识ツバサ</p>
