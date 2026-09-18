@@ -1331,17 +1331,17 @@
 
     .float-play-btn {
       position: fixed;
-      left: 24px;
-      bottom: 24px;
+      right: 24px;
+      bottom: 100px;
       width: 46px;
       height: 46px;
       border-radius: 50%;
-      background: #fff;
-      color: var(--red-600);
-      border: 2px solid var(--red-200);
-      font-size: 1rem;
+      background: linear-gradient(135deg, #ffd700, #ffb700);
+      color: #5a3a00;
+      border: none;
+      font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 6px 18px rgba(255, 183, 0, 0.35);
       opacity: 0;
       visibility: hidden;
       transform: translateY(20px);
@@ -1360,9 +1360,9 @@
 
     .float-play-btn:hover,
     .float-play-btn:focus {
-      background: var(--red-50);
+      background: linear-gradient(135deg, #ffdf33, #ffc107);
       transform: translateY(-3px) scale(1.08);
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 10px 24px rgba(255, 183, 0, 0.45);
       outline: none;
     }
 
@@ -1523,8 +1523,8 @@
       }
 
       .float-play-btn {
-        left: 16px;
-        bottom: 130px;
+        right: 16px;
+        bottom: 200px;
       }
 
       .footer {
