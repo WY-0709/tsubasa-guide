@@ -3317,8 +3317,9 @@
       PLAYLIST.sort(() => Math.random() - 0.5);
       renderPlaylist();
       loadSong(0, false);
-      audio.volume = 1;
-      updateVolumeIcon(1);
+      audio.volume = 0.5;
+      volumeSlider.value = 0.5;
+      updateVolumeIcon(0.5);
       updateFloatVisibility();
     })();
   </script>
