@@ -3206,7 +3206,9 @@
         playlistList.querySelectorAll('li').forEach((li, idx) => {
           if (idx === currentIndex) {
             li.classList.add('active');
-            li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            if (playlistEl.classList.contains('open')) {
+              li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
           } else {
             li.classList.remove('active');
           }
