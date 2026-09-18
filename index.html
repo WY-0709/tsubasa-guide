@@ -2665,8 +2665,6 @@
   <button class="scroll-top" id="scrollTop" aria-label="回到顶部">↑</button>
   <button class="float-play-btn" id="floatPlayBtn" aria-label="播放/暂停">▶</button>
 
-  <audio id="audioEl" preload="none" style="position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1;"></audio>
-
   <script>
     // View switcher: disc drawer (overview) vs section reader
     const sections = document.querySelectorAll('.section');
@@ -3137,7 +3135,8 @@
 ];
 
     (function() {
-      const audio = document.getElementById('audioEl');
+      const audio = new Audio();
+      audio.preload = 'none';
       const playPauseBtn = document.getElementById('playPauseBtn');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
