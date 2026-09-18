@@ -1338,14 +1338,12 @@
         left: 0;
         right: 0;
         width: 100%;
-        height: auto;
-        min-height: 78px;
-        max-height: 130px;
-        padding: 8px 10px;
+        height: 78px;
+        padding: 10px 12px;
         border-right: none;
         border-top: 1px solid var(--border);
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         box-shadow: 0 -4px 24px rgba(0,0,0,0.06);
       }
 
@@ -1355,15 +1353,20 @@
 
       .disc-drawer {
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        overflow-x: visible;
+        flex-wrap: nowrap;
+        gap: 10px;
+        justify-content: flex-start;
+        overflow-x: auto;
         scrollbar-width: none;
-        padding: 0 6px;
+        padding: 0 12px;
+        scroll-snap-type: x mandatory;
       }
 
       .disc-drawer::-webkit-scrollbar { display: none; }
+
+      .disc {
+        scroll-snap-align: start;
+      }
 
       .disc {
         width: 46px;
@@ -1378,6 +1381,22 @@
       .disc-icon { font-size: 1rem; }
 
       .disc-label { display: none; }
+
+      .knowledge-item {
+        padding: 18px 18px 18px 72px;
+      }
+
+      .knowledge-item::before {
+        width: 48px;
+        height: 48px;
+        left: 16px;
+      }
+
+      .knowledge-item::after {
+        width: 8px;
+        height: 8px;
+        left: 36px;
+      }
 
       .main-area {
         display: block;
