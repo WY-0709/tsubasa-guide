@@ -1768,7 +1768,6 @@
       <div class="player-playlist" id="playerPlaylist" aria-label="播放列表">
         <ul id="playlistList"></ul>
       </div>
-      <audio id="audioEl" preload="none"></audio>
     </div>
 
     <main class="sections-stage" aria-live="polite">
@@ -2665,6 +2664,8 @@
 
   <button class="scroll-top" id="scrollTop" aria-label="回到顶部">↑</button>
   <button class="float-play-btn" id="floatPlayBtn" aria-label="播放/暂停">▶</button>
+
+  <audio id="audioEl" preload="none" style="position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1;"></audio>
 
   <script>
     // View switcher: disc drawer (overview) vs section reader
