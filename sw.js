@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tsubasa-guide-v2';
+const CACHE_NAME = 'tsubasa-guide-v3';
 const PRECACHE_ASSETS = [
   '/tsubasa-guide/',
   '/tsubasa-guide/index.html',
@@ -20,7 +20,8 @@ const PRECACHE_ASSETS = [
   '/tsubasa-guide/assets/cover-7-200w.webp',
   '/tsubasa-guide/assets/cover-8.webp',
   '/tsubasa-guide/assets/cover-8-200w.webp',
-  '/tsubasa-guide/assets/playlist.js'
+  '/tsubasa-guide/assets/playlist.js',
+  '/tsubasa-guide/assets/og-card.jpg'
 ];
 
 self.addEventListener('install', (event) => {
