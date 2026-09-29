@@ -1006,98 +1006,122 @@
     }
 
     .section-title {
-      font-size: clamp(1.25rem, 3.5vw, 1.55rem);
-      font-weight: 800;
-      color: var(--red-700);
-      margin-bottom: 0;
-      padding: 10px 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: #fff;
+      margin: 6px 0 6px;
+      padding: 16px 26px 14px;
       border-bottom: none;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
-      line-height: 1.4;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
       user-select: none;
       -webkit-user-select: none;
+      background: linear-gradient(135deg, var(--red-600) 0%, var(--red-500) 70%, var(--red-400) 100%);
+      border-radius: 8px;
+      transform: rotate(-1.4deg);
+      box-shadow:
+        0 14px 30px rgba(193, 18, 31, 0.30),
+        0 3px 0 var(--red-700),
+        inset 0 2px 0 rgba(255, 255, 255, 0.22);
+      position: relative;
+      max-width: 100%;
     }
 
     .section-title .icon {
-      font-size: 1.3em;
+      font-size: 1.1em;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      background: var(--red-100);
-      border-radius: 14px;
-      box-shadow: 0 3px 0 var(--red-200);
+      width: 46px;
+      height: 46px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.28);
     }
 
-    .section-title .count {
-      font-size: 0.68rem;
-      background: linear-gradient(135deg, var(--red-500), var(--red-400));
-      color: white;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      box-shadow: 0 2px 6px rgba(230, 57, 70, 0.2);
-      margin-left: auto;
-    }
-
-    /* Knowledge items — vinyl record cards */
+    /* Knowledge items — vinyl record sleeves on a shelf */
     .knowledge-item {
       --record-label: var(--red-400);
       --record-groove: #2a2a2a;
       --record-groove-light: #3a3a3a;
-      padding: 22px 24px 22px 96px;
-      margin-bottom: 18px;
-      border-radius: var(--radius-lg);
+      padding: 28px 30px 26px 116px;
+      margin-bottom: 30px;
+      border-radius: 6px;
       background: linear-gradient(180deg, #ffffff 0%, #fff8f8 100%);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      box-shadow:
+        0 12px 28px rgba(193, 18, 31, 0.13),
+        0 3px 0 rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
       transition: transform 0.45s var(--ease-bounce), box-shadow 0.45s var(--ease-smooth), background 0.35s;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
-    /* Vinyl record */
+    /* Staggered, scattered shelf layout (desktop only) */
+    @media (min-width: 801px) {
+      .knowledge-item:nth-of-type(odd) {
+        margin-right: 34px;
+        transform: rotate(-0.7deg);
+      }
+      .knowledge-item:nth-of-type(even) {
+        margin-left: 34px;
+        transform: rotate(0.7deg);
+      }
+    }
+
+    /* Keep card content layered above the record decoration */
+    .knowledge-item > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Vinyl record peeking out from behind the card's left edge */
     .knowledge-item::before {
       content: "";
       position: absolute;
-      left: 20px;
+      left: -26px;
       top: 50%;
       transform: translateY(-50%);
-      width: 60px;
-      height: 60px;
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       background:
         radial-gradient(circle at center, #1a1a1a 0%, #1a1a1a 7%, transparent 8%),
-        radial-gradient(circle at center, var(--record-label) 0%, var(--record-label) 22%, transparent 23%),
-        radial-gradient(circle at center, #1a1a1a 0%, #1a1a1a 26%, transparent 27%),
+        radial-gradient(circle at center, var(--record-label) 0%, var(--record-label) 24%, transparent 25%),
+        radial-gradient(circle at center, #1a1a1a 0%, #1a1a1a 28%, transparent 29%),
         repeating-radial-gradient(circle at center, var(--record-groove) 0, var(--record-groove) 2px, var(--record-groove-light) 3px, var(--record-groove-light) 4px);
       box-shadow:
-        0 5px 16px rgba(0, 0, 0, 0.12),
+        0 8px 20px rgba(0, 0, 0, 0.22),
         inset 0 1px 2px rgba(255, 255, 255, 0.12);
       transition: transform 0.55s var(--ease-smooth);
+      z-index: 0;
     }
 
+    /* Record spindle hole */
     .knowledge-item::after {
       content: "";
       position: absolute;
-      left: 45px;
+      left: 16px;
       top: 50%;
       transform: translateY(-50%);
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: #1a1a1a;
       box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.18);
+      z-index: 1;
     }
 
     .knowledge-item:hover {
-      transform: translateY(-8px) scale(1.035);
-      box-shadow: var(--shadow-lg);
+      transform: rotate(0deg) translateY(-6px);
+      box-shadow:
+        0 20px 44px rgba(193, 18, 31, 0.22),
+        0 3px 0 rgba(0, 0, 0, 0.05);
       background: linear-gradient(180deg, #ffffff 0%, #fff0f0 100%);
     }
 
@@ -1110,8 +1134,18 @@
       to { transform: translateY(-50%) rotate(360deg); }
     }
 
+    /* Section-coloured record labels (taken from each section's disc colour) */
+    #sec1 .knowledge-item { --record-label: #9b5de5; }
+    #sec2 .knowledge-item { --record-label: #f15bb5; }
+    #sec3 .knowledge-item { --record-label: #3a86ff; }
+    #sec4 .knowledge-item { --record-label: #e63946; }
+    #sec5 .knowledge-item { --record-label: #ffb703; }
+    #sec6 .knowledge-item { --record-label: #d0d0d0; }
+    #sec7 .knowledge-item { --record-label: #22c55e; }
+    #sec8 .knowledge-item { --record-label: #fb5607; }
+
+    /* Subtle background tints kept from old modifiers (tags removed) */
     .knowledge-item.cold {
-      --record-label: var(--blue-400);
       background: linear-gradient(180deg, #ffffff 0%, #f5faff 100%);
     }
 
@@ -1120,7 +1154,6 @@
     }
 
     .knowledge-item.sweet {
-      --record-label: var(--orange-400);
       background: linear-gradient(180deg, #ffffff 0%, #fffbf5 100%);
     }
 
@@ -1129,30 +1162,24 @@
     }
 
     .item-header {
-      font-weight: 800;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      font-weight: 900;
+      margin-bottom: 10px;
+      display: block;
       color: var(--ink);
-      font-size: 1.05rem;
-      line-height: 1.45;
+      font-size: 1.28rem;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
     }
 
-    .tag {
-      font-size: 0.72rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-weight: 800;
-      flex-shrink: 0;
-      letter-spacing: 0.02em;
-      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+    /* Inline source citation at the foot of each card */
+    .knowledge-item .src {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
     }
-
-    .hot .tag { background: var(--red-200); color: var(--red-700); }
-    .cold .tag { background: var(--blue-100); color: var(--blue-600); }
-    .sweet .tag { background: var(--orange-100); color: var(--orange-600); }
 
     .item-body {
       font-size: 0.97rem;
@@ -1459,19 +1486,21 @@
       .disc-label { display: none; }
 
       .knowledge-item {
-        padding: 18px 18px 18px 72px;
+        padding: 20px 16px 18px 74px;
+        overflow: hidden;
+        border-radius: 14px;
       }
 
       .knowledge-item::before {
-        width: 48px;
-        height: 48px;
-        left: 16px;
+        width: 50px;
+        height: 50px;
+        left: 14px;
       }
 
       .knowledge-item::after {
         width: 8px;
         height: 8px;
-        left: 36px;
+        left: 35px;
       }
 
       .main-area {
@@ -1557,19 +1586,18 @@
     @media (max-width: 640px) {
       header { padding: 32px 14px 24px; }
       .section { padding: 22px 18px; border-radius: var(--radius-lg); }
-      .section-title { gap: 10px; }
+      .section-title { gap: 10px; transform: rotate(-0.6deg); padding: 12px 18px 10px; }
       .section-title .icon { width: 38px; height: 38px; font-size: 1.1em; }
-      .section-title .count { margin-left: 0; }
-      .knowledge-item { padding: 16px 16px 16px 78px; }
-      .knowledge-item::before { width: 48px; height: 48px; left: 16px; }
-      .knowledge-item::after { width: 8px; height: 8px; left: 36px; }
+      .knowledge-item { padding: 16px 14px 16px 70px; }
+      .knowledge-item::before { width: 46px; height: 46px; left: 12px; }
+      .knowledge-item::after { width: 8px; height: 8px; left: 31px; }
       .equip-list { grid-template-columns: 1fr; }
       .member-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
     }
 
     @media (max-width: 420px) {
       h1 { font-size: 1.8rem; }
-      .section-title { font-size: 1.15rem; }
+      .section-title { font-size: 1.6rem; }
       .member-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1620,42 +1648,42 @@
       <button class="disc" data-target="sec1" aria-label="基本资料与平台账号">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🔥</span>
-        <span class="disc-label">基本资料 &amp; 平台账号</span>
+        <span class="disc-label">基本资料</span>
       </button>
       <button class="disc" data-target="sec2" aria-label="角色立绘与真人外观">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">✨</span>
-        <span class="disc-label">角色立绘 &amp; 真人外观</span>
+        <span class="disc-label">角色立绘</span>
       </button>
       <button class="disc" data-target="sec3" aria-label="生活与日常特征">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🧠</span>
-        <span class="disc-label">生活 &amp; 日常特征</span>
+        <span class="disc-label">日常特征</span>
       </button>
       <button class="disc" data-target="sec4" aria-label="音乐与技术">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎤</span>
-        <span class="disc-label">音乐 &amp; 技术</span>
+        <span class="disc-label">音乐技术</span>
       </button>
       <button class="disc" data-target="sec5" aria-label="游戏与饮食偏好">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎮</span>
-        <span class="disc-label">游戏 &amp; 饮食</span>
+        <span class="disc-label">游戏饮食</span>
       </button>
       <button class="disc" data-target="sec6" aria-label="成员与社交关系">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">👥</span>
-        <span class="disc-label">成员 &amp; 社交关系</span>
+        <span class="disc-label">成员关系</span>
       </button>
-      <button class="disc" data-target="sec7" aria-label="歌曲收听指引">
+      <button class="disc" data-target="sec7" aria-label="收听指引">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎧</span>
-        <span class="disc-label">歌曲收听指引</span>
+        <span class="disc-label">收听指引</span>
       </button>
       <button class="disc" data-target="sec8" aria-label="EL6成员">
         <span class="disc-grooves" aria-hidden="true"></span>
         <span class="disc-icon">🎬</span>
-        <span class="disc-label">EL6 成员</span>
+        <span class="disc-label">EL6成员</span>
       </button>
     </nav>
   </aside>
@@ -1679,7 +1707,7 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">基本资料 &amp; 平台账号</span>
+            <span class="cd-spine-text">基本资料</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1690,7 +1718,7 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">角色立绘 &amp; 真人外观</span>
+            <span class="cd-spine-text">角色立绘</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1701,7 +1729,7 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">生活 &amp; 日常特征</span>
+            <span class="cd-spine-text">日常特征</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1712,7 +1740,7 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">音乐 &amp; 技术</span>
+            <span class="cd-spine-text">音乐技术</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1723,7 +1751,7 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">游戏 &amp; 饮食</span>
+            <span class="cd-spine-text">游戏饮食</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1734,18 +1762,18 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">成员 &amp; 社交关系</span>
+            <span class="cd-spine-text">成员关系</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
 
-        <button class="cd-case" data-target="sec7" aria-label="歌曲收听指引">
+        <button class="cd-case" data-target="sec7" aria-label="收听指引">
           <div class="cd-face cd-front">
-            <img src="assets/cover-7.webp" alt="歌曲收听指引封面" loading="lazy" decoding="async">
+            <img src="assets/cover-7.webp" alt="收听指引封面" loading="lazy" decoding="async">
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">歌曲收听指引</span>
+            <span class="cd-spine-text">收听指引</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1756,7 +1784,7 @@
             <span class="cd-shine" aria-hidden="true"></span>
           </div>
           <div class="cd-face cd-spine" aria-hidden="true">
-            <span class="cd-spine-text">EL6 成员</span>
+            <span class="cd-spine-text">EL6成员</span>
           </div>
           <div class="cd-face cd-back" aria-hidden="true"></div>
         </button>
@@ -1797,11 +1825,10 @@
       <h2 class="section-title">
         <span class="icon">🔥</span>
         一、基本资料 &amp; 二、平台账号
-        <span class="count">入门必看</span>
       </h2>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">热知识</span> EL6赤色担当，ACE一番手</div>
+        <div class="item-header">EL6赤色担当，ACE一番手</div>
         <div class="item-body">
           ツバサ（Tsubasa / 翼）是歌い手团体<span class="highlight">Element Sicks（EL6）</span>的成员，赤色担当，<span class="highlight">ACE一番手</span>。EL6 的万能担当——唱歌、混音、舞蹈…没有不擅长的领域。
           <ul class="song-list">
@@ -1812,19 +1839,20 @@
             <li><strong>MBTI：</strong>INTP-A-C（熊类型测试，2026年6月3日推文）</li>
             <li><strong>最喜欢的频段：</strong><span class="highlight">6kHz</span>（"沙沙作响的质感"）</li>
           </ul>
+          <div class="src">来源：官网介绍 / B站安利向视频 / 推文，2026年6月3日</div>
         </div>
       </article>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">热知识</span> 自我介绍</div>
+        <div class="item-header">自我介绍</div>
         <div class="item-body">
           "大家好，我是EL6的万能担当【ツバサ】。唱歌、混音、舞蹈…没有不擅长的领域！我深爱着音乐，也必将全力歌唱直至被音乐所爱！直到声音传达到你心底的那天。"
-          <br><span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：官网介绍</span>
+          <div class="src">来源：官网介绍</div>
         </div>
       </article>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">官方</span> 二、平台账号一览</div>
+        <div class="item-header">平台账号一览</div>
         <div class="item-body">
           <div class="equip-list">
             <div class="equip-item">
@@ -1871,7 +1899,8 @@
               <span class="jp">#羽ペン（FA）/ #ツバサLAB（个人tag）</span>
             </div>
           </div>
-          <p style="margin-top:8px;font-size:0.85em;color:var(--ink-muted);">Bilibili 无官方账号，有切片和搬运账号。来源：官网介绍 / YouTube简介 / B站简介</p>
+          <p style="margin-top:8px;font-size:0.85em;color:var(--ink-muted);">Bilibili 无官方账号，有切片和搬运账号。</p>
+          <div class="src">来源：官网介绍 / YouTube简介 / B站简介 / 推文，2025年4月28日</div>
         </div>
       </article>
     </section>
@@ -1881,22 +1910,21 @@
       <h2 class="section-title">
         <span class="icon">✨</span>
         三、角色立绘 &amp; 四、真人外观
-        <span class="count">颜值向</span>
       </h2>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 三、角色立绘</div>
+        <div class="item-header">角色立绘</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>发型：</strong>金色长发，半扎发，左侧有小发髻 / 丸子头</li>
             <li><strong>瞳色：</strong>绯红色</li>
           </ul>
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：立绘</span>
+          <div class="src">来源：立绘</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 四、真人外观</div>
+        <div class="item-header">真人外观</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>发型：</strong>现实生活也是金色长发，保养得很好；一直都很长，偶尔会修剪；颜色深如焦糖布丁是在没补发根的时候。</li>
@@ -1904,7 +1932,7 @@
             <li><strong>身材：</strong>有腹肌，对身材自信（"像巧克力棒一样紧实"）。</li>
             <li><strong>手脚：</strong>手脚冰凉（末梢冷え性），常冻得睡不着。</li>
           </ul>
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：实写视频/照片；推文 2025年10月6日 / 2025年6月19日 / 2022年2月14日</span>
+          <div class="src">来源：实写视频/照片 / 推文，2025年10月6日 / 2025年6月19日 / 2022年2月14日</div>
         </div>
       </article>
     </section>
@@ -1913,12 +1941,11 @@
     <section class="section" id="sec3">
       <h2 class="section-title">
         <span class="icon">🧠</span>
-        十二、生活 &amp; 日常特征
-        <span class="count">日常向</span>
+        十二、日常特征
       </h2>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">性格</span> Mr.超级正能量人类</div>
+        <div class="item-header">性格</div>
         <div class="item-body">
           <ul class="song-list">
             <li><span class="highlight">Mr.超级正能量人类</span>——喜欢给大家早安问候和拥抱</li>
@@ -1928,22 +1955,23 @@
             <li>玩笑：要收弟子得先修行150年</li>
             <li>喜欢用颜文字：<span class="jp">`( 'ω' )` `(´；Д；`)` `(；∀；)` `(๑•̀ㅂ•́)و` `(〃▽〃)` `( ͡° ͜ʖ ͡°)`</span> 等</li>
           </ul>
+          <div class="src">来源：推文，2026年5月14日 / 2026年6月6日 / 2022年12月20日 / 2026年5月19日 等</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">声音</span> 声音 / 说话习惯</div>
+        <div class="item-header">声音·说话习惯</div>
         <div class="item-body">
           <ul class="song-list">
             <li><span class="highlight">结节音（自创词汇）</span>——声带有结节，特别好听且有辨识度的嗓音，略沙哑的 husky voice</li>
             <li>2022年1月26日："好像越来越喜欢用动物般的声音说话了……" <span class="jp">`( 'ω' )`</span></li>
           </ul>
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：B站安利向视频 / 队友介绍 / 推文</span>
+          <div class="src">来源：B站安利向视频 / 推文，2022年1月26日</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">身体特征</span> 怕冷、能睡、有腹肌</div>
+        <div class="item-header">身体特征</div>
         <div class="item-body">
           <ul class="song-list">
             <li>手脚冰凉（末梢冷え性），常冻得睡不着</li>
@@ -1957,11 +1985,12 @@
             <li>睡眠能力超强（车站前两站、开车休息时都能睡，S级场景）</li>
             <li>"是床不放过我，还是我不放过床。这就是相思相爱吧。恋爱真简单呢♡"</li>
           </ul>
+          <div class="src">来源：推文，2022年2月14日 / 2025年6月19日 / 2025年10月6日 / 2026年4月21日 等 / 实写视频照片</div>
         </div>
       </article>
 
       <article class="knowledge-item sweet">
-        <div class="item-header"><span class="tag">时尚</span> Oshare风 &amp; 红色情结</div>
+        <div class="item-header">时尚</div>
         <div class="item-body">
           <ul class="song-list">
             <li>2025年4月28日：穿最爱的水母装出门</li>
@@ -1970,11 +1999,12 @@
             <li>2026年6月6日：最近老买卫衣</li>
             <li>红色=代表色，买红色物品因为像自己的颜色</li>
           </ul>
+          <div class="src">来源：推文，2025年4月28日 / 2025年6月1日 / 2025年9月2日 / 2026年6月6日 / 2026年5月17日</div>
         </div>
       </article>
 
       <article class="knowledge-item sweet">
-        <div class="item-header"><span class="tag">桑拿</span> 超级桑拿控</div>
+        <div class="item-header">桑拿</div>
         <div class="item-body">
           <ul class="song-list">
             <li>超级桑拿控：ていく提桑拿→秒回"你叫我？"，被吐槽"名字改成桑拿了"</li>
@@ -1982,16 +2012,18 @@
             <li>2025年9月16日：桑拿创作法——泡浴缸→桑拿房脑补歌曲→冷水浴→忘掉→循环</li>
             <li>桑拿妖精吉祥物：ととのん（ととのう=桑拿后舒畅状态）</li>
           </ul>
+          <div class="src">来源：推文，2025年4月28日 / 2025年6月8日 / 2025年6月2日 / 2025年9月16日 / 2025年10月5日</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">其他爱好</span> 壁虎可爱 &amp; 画伯</div>
+        <div class="item-header">其他爱好</div>
         <div class="item-body">
           <ul class="song-list">
             <li>喜欢爬行动物，觉得壁虎超可爱</li>
             <li>爱画画但画功欠佳，和队友ねいろ并称<span class="highlight">"画伯"</span>，会给成员画生日画；2025年9月20日画了自己的立绘涂鸦，"像自家孩子一样"</li>
           </ul>
+          <div class="src">来源：推文，2025年7月4日 / 推文，2025年9月20日</div>
         </div>
       </article>
     </section>
@@ -2000,32 +2032,32 @@
     <section class="section" id="sec4">
       <h2 class="section-title">
         <span class="icon">🎤</span>
-        五、音乐 &amp; 技术
-        <span class="count">实力向</span>
+        五、音乐技术
       </h2>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">职业定位</span> 歌手 / 混音师 / 舞者</div>
+        <div class="item-header">职业定位</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>歌手（歌い手）：</strong>翻唱（歌ってみた），也做原创（原创曲：<span class="highlight">Klaxon</span>）</li>
             <li><strong>混音师（MIX師）：</strong>自己账号发的歌都是自己混的；和ていく的翻唱也是Tsubasa混；EL6团曲由けったろ混</li>
             <li><strong>舞者：</strong>从小学舞，会十个舞种，有参与原创曲的编舞</li>
           </ul>
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：官网介绍 / 推文 2022年2月24日 / 队友介绍</span>
+          <div class="src">来源：官网介绍 / 推文，2022年2月24日 / B站安利向视频</div>
         </div>
       </article>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">安利向评价</span> 凭对音乐的爱自学至此的天才</div>
+        <div class="item-header">安利向评价</div>
         <div class="item-body">
           EL6的ACE一番手。以听感略沙哑的<span class="highlight">husky voice</span>为特点，常在曲中加入 chorus，擅长转音，唱歌很有技巧性。担任组合内部分 mix 工作。是凭对音乐的爱自学至此的热爱研究的天才。从小学舞，会十个舞种，有参与原创曲的编舞。
           <a href="https://www.bilibili.com/video/BV1MyidBtEPM" target="_blank" class="watch-link">→ 【安利向/EL6】看完就能懂的Element Sicks【歌舞篇】</a>
+          <div class="src">来源：B站安利向视频</div>
         </div>
       </article>
 
       <article class="knowledge-item sweet">
-        <div class="item-header"><span class="tag">萌点</span> 麦克风"感情史"</div>
+        <div class="item-header">麦克风"感情史"</div>
         <div class="item-body">
           B站整理的麦克风升级历程（粉丝戏称为"感情史"）：
           <div class="equip-list">
@@ -2039,33 +2071,35 @@
           </div>
           <p style="margin-top:8px;font-size:0.85em;color:var(--ink-muted);">声卡不算"分手"——至今仍在做牛做马（USB麦可绕过声卡，但 Manley 等 XLR 麦仍需声卡连接）。</p>
           <a href="https://www.bilibili.com/video/BV13zKn6fExu/" target="_blank" class="watch-link">→ 【熟/EL6】ツバサ的感情史【直播切片】</a>
+          <div class="src">来源：推文，2022年5月20日 / 推文，2026年3月2日 / B站直播切片</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 对音乐器材的热爱与研究</div>
+        <div class="item-header">对音乐器材的热爱与研究</div>
         <div class="item-body">
           <ul class="song-list">
             <li>对麦克风等音乐相关器材很喜欢研究，是凭对音乐的爱自学至此的热爱研究的天才</li>
             <li>想买插件 → 但首先想换 DAW → 不过在那之前得换电脑，感叹"这可麻烦了"</li>
           </ul>
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文 2022年7月22日 / B站安利向视频</span>
+          <div class="src">来源：推文，2022年7月22日 / B站安利向视频</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 录音距离偏好（随情况变化）</div>
+        <div class="item-header">录音距离偏好</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>2022年3月30日：</strong>约一拳的距离 <span class="jp">「自分は拳1個分が好きです」</span></li>
             <li><strong>2023年2月20日：</strong>1.5～2拳 <span class="jp">如果觉得声音有点闷，只要不介意房间回声，推荐离麦克风1.5～2个拳头的距离唱歌。自己是离2个拳头左右。</span></li>
             <li><strong>注意：</strong>不同情况用不同距离，现在可能已不同</li>
           </ul>
+          <div class="src">来源：推文，2022年3月30日 / 推文，2023年2月20日</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 混音技巧库</div>
+        <div class="item-header">混音技巧库</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>低切滤波：</strong>男声100Hz、女声约160Hz为基准</li>
@@ -2076,31 +2110,32 @@
             <li><strong>Doubler：</strong>人声压力不足/和伴奏间隙多时，加一点 doubler 填补空隙</li>
             <li><strong>困扰频段：</strong>提高音量时6kHz太强（也是最喜欢的频段）</li>
           </ul>
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文 2023年1月25日 / 2023年2月27日 / 2022年5月29日 等</span>
+          <div class="src">来源：推文，2023年1月25日 / 2023年2月27日 / 2022年5月29日 等 / 官网介绍</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">契机</span> 迷上翻唱的契机</div>
+        <div class="item-header">迷上翻唱的契机</div>
         <div class="item-body">
           <span class="highlight">阳炎计划（Kagerou Project / 陽炎プロジェクト）</span>——迷上翻唱的契机。
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文 2022年7月6日</span>
+          <div class="src">来源：推文，2022年7月6日</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 混音教学</div>
+        <div class="item-header">混音教学</div>
         <div class="item-body">
           做过免费插件介绍视频，2023年3月1日预告"明天会聊自己一直在用的免费插件"。
-          <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文 2023年3月1日</span>
+          <div class="src">来源：推文，2023年3月1日</div>
         </div>
       </article>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">原创曲</span> Klaxon</div>
+        <div class="item-header">原创曲</div>
         <div class="item-body">
           <span class="highlight">Klaxon</span> — EL6原创SOLO曲
           <a href="https://www.bilibili.com/video/BV1LreBzBEUb/" target="_blank" class="watch-link">→ 【中日字幕】Klaxon - ツバサ〡EL6原创SOLO曲</a>
+          <div class="src">来源：官网介绍 / B站链接</div>
         </div>
       </article>
     </section>
@@ -2110,25 +2145,25 @@
       <h2 class="section-title">
         <span class="icon">🎮</span>
         十、游戏喜好 &amp; 十一、饮食偏好
-        <span class="count">趣味向</span>
       </h2>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 十、游戏喜好</div>
+        <div class="item-header">游戏喜好</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>Valorant</strong>：最近沉迷，停不下来 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2023年4月28日</span></li>
-            <li><strong>Apex</strong>：常玩的FPS，打得好（队友说）<span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2023年4月28日 / 队友介绍</span></li>
+            <li><strong>Apex</strong>：常玩的FPS，打得好（队友说）<span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2023年4月28日</span></li>
             <li><strong>Minecraft</strong>：很上手（YouTube有两次官方录播可以看）</li>
             <li><strong>恐怖游戏</strong>：喜欢玩恐怖游戏（b站有切片）</li>
             <li><strong>星露谷物语</strong>："我要悠闲地玩！！！" <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2024年5月3日</span></li>
             <li><strong>在线卡牌游戏</strong>：接受了一起玩的邀请 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2023年4月28日</span></li>
           </ul>
+          <div class="src">来源：推文，2023年4月28日 / 2024年5月3日 等 / YouTube录播 / B站切片</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 十一、饮食偏好</div>
+        <div class="item-header">饮食偏好</div>
         <div class="item-body">
           <ul class="song-list">
             <li><strong>香菜味薯片</strong>："超好吃啊！！！" <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2月19日</span></li>
@@ -2141,6 +2176,7 @@
             <li><strong>特制味噌葱拉面</strong>：+紫菜+葱+玉米天妇罗+红姜，山冈家，社长请客 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2026年4月22日</span></li>
             <li><strong>LION COFFEE</strong>：Vanilla Macadamia Black，红色瓶=代表色 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2026年5月17日</span></li>
           </ul>
+          <div class="src">来源：推文（2月19日 / 3月24日 / 2022年6月18日 / 2022年7月21日 / 2025年9月25日 / 2026年4月20日 / 2026年4月22日 / 2026年5月17日 等）</div>
         </div>
       </article>
     </section>
@@ -2150,26 +2186,26 @@
       <h2 class="section-title">
         <span class="icon">👥</span>
         八、成员关系 &amp; 九、社交关系
-        <span class="count">关系网</span>
       </h2>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 八、成员关系</div>
+        <div class="item-header">成员关系</div>
         <div class="item-body">
           <ul class="song-list">
-            <li><strong>与ていく</strong>：<span class="highlight">官方搭档</span>；深夜组（与832）；桑拿梗搭档 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：队友介绍 / 推文，2025年4月28日等</span></li>
-            <li><strong>与ねいろ</strong>：并称<span class="highlight">"画伯"</span>（Tsubasa会给成员画生日画）<span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：队友介绍</span></li>
-            <li><strong>与JIL</strong>：<span class="highlight">舞蹈组</span>，有时会一起编舞；代表色分别是红色和白色，自称<span class="highlight">"日本男子组"</span>；能搭配出情侣装（双子装）；"样子奇怪组"（发色都不是黑色，都有结节音）<span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：队友介绍</span></li>
-            <li><strong>与832</strong>："样子奇怪组"（与JIL，发色都不是黑色，都有结节音——自创词汇，指声带有结节，Tsubasa的最明显）；深夜组（与ていく，私下距离最近）；832说过喜欢靠在Tsubasa身上 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：队友介绍</span></li>
-            <li><strong>与春希</strong>：会一起购物，Tsubasa说他们俩是<span class="highlight">"赤裸裸组"</span>；Tsubasa对春希在企划中说是<span class="highlight">"扭曲的爱"</span> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：队友介绍 / <a href="https://www.bilibili.com/video/BV1GFRCByEPE/" target="_blank" class="channel-link">B站视频</a></span></li>
+            <li><strong>与ていく</strong>：<span class="highlight">官方搭档</span>；深夜组（与832）；桑拿梗搭档 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2025年4月28日等</span></li>
+            <li><strong>与ねいろ</strong>：并称<span class="highlight">"画伯"</span>（Tsubasa会给成员画生日画）</li>
+            <li><strong>与JIL</strong>：<span class="highlight">舞蹈组</span>，有时会一起编舞；代表色分别是红色和白色，自称<span class="highlight">"日本男子组"</span>；能搭配出情侣装（双子装）；"样子奇怪组"（发色都不是黑色，都有结节音）</li>
+            <li><strong>与832</strong>："样子奇怪组"（与JIL，发色都不是黑色，都有结节音——自创词汇，指声带有结节，Tsubasa的最明显）；深夜组（与ていく，私下距离最近）；832说过喜欢靠在Tsubasa身上 </li>
+            <li><strong>与春希</strong>：会一起购物，Tsubasa说他们俩是<span class="highlight">"赤裸裸组"</span>；Tsubasa对春希在企划中说是<span class="highlight">"扭曲的爱"</span> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：<a href="https://www.bilibili.com/video/BV1GFRCByEPE/" target="_blank" class="channel-link">B站视频</a></span></li>
             <li>6人关系都比较亲近。832、Tsubasa和ねいろ睡过一张床，两次都是Tsubasa在中间，832和ねいろ在两边，会换位置，形容是<span class="highlight">"川"字的三人睡姿</span>；期间发生了<span class="highlight">洗发水爆炸事件</span> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：<a href="https://www.bilibili.com/video/BV1i12CBeEQE/" target="_blank" class="channel-link">B站直播切片</a></span></li>
-            <li><strong>けったろ（Kettaro）@kettar0</strong>：会混EL6团曲；Tsubasa自己账号发的歌都是自己混的 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：队友介绍</span></li>
+            <li><strong>けったろ（Kettaro）@kettar0</strong>：会混EL6团曲；Tsubasa自己账号发的歌都是自己混的 </li>
           </ul>
+          <div class="src">来源：推文，2025年4月28日 / B站视频 / B站直播切片 / 官网介绍 等</div>
         </div>
       </article>
 
       <article class="knowledge-item cold">
-        <div class="item-header"><span class="tag">冷知识</span> 九、社交关系</div>
+        <div class="item-header">社交关系</div>
         <div class="item-body">
           <p style="margin-bottom:6px;"><strong style="color:var(--red-600);">ゆう（代表）@yu_efs</strong></p>
           <ul class="song-list">
@@ -2187,22 +2223,22 @@
           </ul>
           <p style="margin:12px 0 6px;"><strong style="color:var(--red-600);">けったろ（Kettaro）@kettar0</strong></p>
           <ul class="song-list">
-            <li>幕后制作人，会混EL6团曲；私下叫Tsubasa的绰号：バサお、おっぱ様 等 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2026年4月19日 / 队友介绍</span></li>
+            <li>幕后制作人，会混EL6团曲；私下叫Tsubasa的绰号：バサお、おっぱ様 等 <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2026年4月19日</span></li>
           </ul>
           <p style="margin:12px 0 6px;"><strong style="color:var(--red-600);">渡会雲雀◆☕にじさんじ @watarai_hibari</strong></p>
           <ul class="song-list">
             <li>彩虹社VTuber，被其关注后极度激动，"歌、配音、声音我都超级喜欢" <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：推文，2025年6月12日</span></li>
           </ul>
+          <div class="src">来源：官网介绍 / 推文（2022年1月10日 / 2025年4月21日 / 2025年6月16日 / 2025年6月17日 / 2025年9月14日 / 2026年1月12日 / 2026年4月13日 / 2026年4月19日 / 2025年6月12日 等）</div>
         </div>
       </article>
     </section>
 
-    <!-- 7. 歌曲收听指引 -->
+    <!-- 7. 收听指引 -->
     <section class="section" id="sec7">
       <h2 class="section-title">
         <span class="icon">🎧</span>
-        六、歌曲收听指引
-        <span class="count">听歌渠道</span>
+        六、收听指引
       </h2>
 
       <article class="knowledge-item hot">
@@ -2243,12 +2279,11 @@
       </article>
     </section>
 
-    <!-- 8. EL6 成员 -->
+    <!-- 8. EL6成员 -->
     <section class="section" id="sec8">
       <h2 class="section-title">
         <span class="icon">🎬</span>
-        七、EL6 成员
-        <span class="count">团体一览</span>
+        七、EL6成员
       </h2>
 
       <article class="knowledge-item hot">
@@ -2303,7 +2338,13 @@
       const disc = document.querySelector(`.disc[data-target="${targetSection.id}"]`);
       if (disc) disc.classList.add('active');
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll to where the section content begins (section-title area),
+      // not the very top of the page.
+      requestAnimationFrame(() => {
+        const rect = targetSection.getBoundingClientRect();
+        const offset = rect.top + window.scrollY - 16;
+        window.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
+      });
     }
 
     function showOverview() {
