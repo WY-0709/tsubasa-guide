@@ -1584,10 +1584,13 @@
       z-index: 1;
     }
     .album-card:hover .album-vinyl {
-      transform: translateY(-50%) translateX(8px) rotate(30deg);
-      animation: spin 4s linear infinite;
+      transform: translateY(-50%) translateX(8px);
+      animation: spin-vinyl 4s linear infinite;
     }
-    @keyframes spin { to { transform: translateY(-50%) translateX(8px) rotate(390deg); } }
+    @keyframes spin-vinyl {
+      from { transform: translateY(-50%) translateX(8px) rotate(0deg); }
+      to { transform: translateY(-50%) translateX(8px) rotate(360deg); }
+    }
     /* Album info */
     .album-info {
       margin-top: 8px;
