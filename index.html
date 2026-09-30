@@ -1499,177 +1499,168 @@
       font-weight: 800;
     }
 
-    /* === Cassette tape shelf === */
-    .tape-shelf {
-      background: linear-gradient(180deg, #faf3e8 0%, #f5ead8 100%);
+    /* === Album shelf === */
+    .album-shelf {
+      background: linear-gradient(180deg, #faf6f0 0%, #f3ebe0 100%);
       border-radius: 14px;
-      padding: 20px 16px 8px;
+      padding: 20px 16px 14px;
       margin-top: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5);
-      border: 1px solid #e8d8c0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
+      border: 1px solid #e8d8c8;
+    }
+    .album-rack {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      justify-items: center;
+    }
+    .album-card {
       position: relative;
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.3s var(--ease-bounce);
     }
-    .tape-shelf::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 10px;
-      background: linear-gradient(180deg, #e8d8c0 0%, #d5c4a8 100%);
-      border-radius: 0 0 14px 14px;
+    .album-card:hover {
+      transform: translateY(-6px) scale(1.04);
     }
-    .tape-rack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      padding-bottom: 14px;
+    /* Album cover + vinyl peeking out */
+    .album-cover-wrap {
+      position: relative;
+      width: 100%;
+      height: 150px;
+      overflow: visible;
     }
-    .tape {
+    .album-cover {
       position: relative;
       width: 130px;
-      min-height: 180px;
-      background: linear-gradient(145deg, #fff8f0 0%, #fff0e8 50%, #fff5f0 100%);
-      border-radius: 8px;
-      padding: 10px 8px 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5);
-      border: 1px solid #f0d8c8;
-      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s var(--ease-smooth);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .tape:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12), 0 0 0 1.5px rgba(255,107,107,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
-      border-color: var(--red-300);
-    }
-    /* Tape label area */
-    .tape-label {
-      width: 100%;
-      background: linear-gradient(135deg, #fff5f0 0%, #fff 50%, #fff8f5 100%);
+      height: 150px;
       border-radius: 4px;
-      padding: 6px 5px;
-      text-align: center;
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 6px;
-      min-height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #f0d8c8;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      z-index: 2;
+      transition: transform 0.3s var(--ease-bounce);
     }
-    /* Cassette reels */
-    .tape-reels {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      margin-bottom: 4px;
+    .album-card:hover .album-cover {
+      transform: translateX(-6px);
     }
-    .tape-reel {
-      width: 28px; height: 28px;
+    .album-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Vinyl record peeking from right */
+    .album-vinyl {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
-      background: radial-gradient(circle, #d8c8b8 20%, #c8b8a8 22%, #c8b8a8 60%, #b8a898 62%);
-      border: 1.5px solid #a89888;
-      position: relative;
+      background: radial-gradient(circle, #1a1a1a 18%, #2a2a2a 20%, #1a1a1a 22%, #2a2a2a 24%, #1a1a1a 26%, #2a2a2a 28%, #1a1a1a 30%, #2a2a2a 32%, #1a1a1a 34%, #2a2a2a 36%, #1a1a1a 38%, #2a2a2a 40%, #1a1a1a 42%, #2a2a2a 44%, #1a1a1a 46%, #2a2a2a 48%, #1a1a1a 50%, #2a2a2a 52%, #1a1a1a 54%, #2a2a2a 56%, #1a1a1a 58%, #2a2a2a 60%, #1a1a1a 62%, #2a2a2a 64%, #1a1a1a 66%, #2a2a2a 68%, #1a1a1a 70%, #2a2a2a 72%, #1a1a1a 74%, #2a2a2a 76%, #1a1a1a 78%, #2a2a2a 80%, #1a1a1a 82%, #2a2a2a 84%, #1a1a1a 86%, #2a2a2a 88%, #1a1a1a 90%, #2a2a2a 92%, #1a1a1a 94%, #2a2a2a 96%);
+      z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: transform 0.4s var(--ease-bounce);
     }
-    .tape-reel::before {
+    .album-vinyl::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 36px; height: 36px;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background: var(--red-500);
+    }
+    .album-vinyl::after {
       content: '';
       position: absolute;
       left: 50%; top: 50%;
       width: 6px; height: 6px;
       transform: translate(-50%,-50%);
       border-radius: 50%;
-      background: #a89888;
+      background: #1a1a1a;
+      z-index: 1;
     }
-    .tape-reel::after {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      border-radius: 50%;
-      background:
-        conic-gradient(from 0deg, transparent 0deg, #b8a898 40deg, transparent 50deg, #b8a898 90deg, transparent 100deg, #b8a898 140deg, transparent 150deg, #b8a898 190deg, transparent 200deg, #b8a898 240deg, transparent 250deg, #b8a898 290deg, transparent 300deg, #b8a898 340deg, transparent 350deg);
-      opacity: 0.6;
+    .album-card:hover .album-vinyl {
+      transform: translateY(-50%) translateX(8px) rotate(30deg);
+      animation: spin 4s linear infinite;
     }
-    .tape:hover .tape-reel {
-      animation: spin 2s linear infinite;
+    @keyframes spin { to { transform: translateY(-50%) translateX(8px) rotate(390deg); } }
+    /* Album info */
+    .album-info {
+      margin-top: 8px;
+      text-align: left;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    /* Tape bottom strip */
-    .tape-strip {
-      width: 100%;
-      height: 16px;
-      background: linear-gradient(90deg, #d8c8b8, #e8d8c8, #d8c8b8);
-      border-radius: 2px;
-      margin-bottom: 4px;
-      position: relative;
-      border: 1px solid #c8b8a8;
+    .album-title-cn {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 1px;
     }
-    .tape-strip::before {
-      content: '';
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%,-50%);
-      width: 40%;
-      height: 4px;
-      background: #b8a898;
-      border-radius: 1px;
+    .album-title-jp {
+      font-size: 0.68rem;
+      color: #999;
+      line-height: 1.3;
+      margin-bottom: 2px;
     }
-    /* Tape info */
-    .tape-views {
+    .album-views {
       font-size: 0.62rem;
       color: #888;
-      text-align: center;
-      margin-bottom: 4px;
       font-weight: 600;
+      margin-bottom: 4px;
     }
-    .tape-rank {
-      position: absolute;
-      top: 6px; left: 6px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: var(--red-500);
-      padding: 1px 5px;
-      border-radius: 3px;
-      background: rgba(255,255,255,0.85);
-      z-index: 2;
-      line-height: 1.2;
-    }
-    .tape-links {
+    .album-links {
       display: flex;
       gap: 4px;
-      justify-content: center;
     }
-    .tape-links a {
-      font-size: 0.6rem;
-      padding: 2px 6px;
+    .album-links a {
+      font-size: 0.58rem;
+      padding: 2px 7px;
       border-radius: 3px;
       text-decoration: none;
       font-weight: 700;
       transition: all 0.15s;
     }
-    .tape-links .yt {
+    .album-links .yt {
       background: #ff0000;
       color: #fff;
     }
-    .tape-links .bilibili {
+    .album-links .bili {
       background: #fb7299;
       color: #fff;
     }
-    .tape-links a:hover {
+    .album-links a:hover {
       transform: scale(1.1);
     }
-    /* New release tape */
-    .tape.new-release {
-      border: 1.5px solid #f59e0b;
-      box-shadow: 0 0 10px rgba(245,158,11,0.2), 0 2px 6px rgba(0,0,0,0.08);
+    .album-rank {
+      position: absolute;
+      top: -4px; left: -4px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--red-500);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 3;
     }
-    .tape.new-release .tape-label {
-      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-      border-color: #fde68a;
+    .album-card.new .album-rank {
+      background: #f59e0b;
+      width: auto;
+      padding: 0 6px;
+      border-radius: 11px;
+    }
+    @media (max-width: 600px) {
+      .album-rack { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+      .album-card { width: 130px; }
+      .album-cover-wrap { height: 130px; }
+      .album-cover { width: 112px; height: 130px; }
+      .album-vinyl { width: 112px; height: 112px; right: -16px; }
     }
     /* Platform cards for listening guide */
     .listen-platforms {
@@ -2666,125 +2657,141 @@
       </article>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">热知识</span> YouTube播放量 TOP 7 · 点磁带走起</div>
+        <div class="item-header"><span class="tag">热知识</span> YouTube播放量 TOP 7 · 点封面听歌</div>
         <div class="item-body">
-          <div class="tape-shelf">
-            <div class="tape-rack">
-              <div class="tape">
-                <div class="tape-rank">1</div>
-                <div class="tape-label">モニタリング<br>DECO*27</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
+          <div class="album-shelf">
+            <div class="album-rack">
+              <div class="album-card">
+                <div class="album-rank">1</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-1.jpg" alt="视奸" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
                 </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">841万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/R4oosDdOYlc" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1dtBjYVEkJ/" target="_blank" class="bilibili">B站</a>
-                </div>
-              </div>
-              <div class="tape">
-                <div class="tape-rank">2</div>
-                <div class="tape-label">ロミオと<br>シンデレラ</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
-                </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">420万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/fY93kZK5t4I" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1E8B7BgEAX/" target="_blank" class="bilibili">B站</a>
+                <div class="album-info">
+                  <div class="album-title-cn">视奸（Monitoring）</div>
+                  <div class="album-title-jp">モニタリング / DECO*27</div>
+                  <div class="album-views">841万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/R4oosDdOYlc" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1dtBjYVEkJ/" target="_blank" class="bili">B站</a>
+                  </div>
                 </div>
               </div>
-              <div class="tape">
-                <div class="tape-rank">3</div>
-                <div class="tape-label">ビビデバ<br>星街すいせい</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
+              <div class="album-card">
+                <div class="album-rank">2</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-2.jpg" alt="罗密欧与灰姑娘" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
                 </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">241万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/E2lG9VqGmT0" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1DD42137j8/" target="_blank" class="bilibili">B站</a>
-                </div>
-              </div>
-              <div class="tape">
-                <div class="tape-rank">4</div>
-                <div class="tape-label">セレナーデ<br>なとり</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
-                </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">225万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/r8d3gbwJBMs" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1E6DeBQEsK/" target="_blank" class="bilibili">B站</a>
+                <div class="album-info">
+                  <div class="album-title-cn">罗密欧与灰姑娘</div>
+                  <div class="album-title-jp">ロミオとシンデレラ（2025生日）</div>
+                  <div class="album-views">420万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/fY93kZK5t4I" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1E8B7BgEAX/" target="_blank" class="bili">B站</a>
+                  </div>
                 </div>
               </div>
-              <div class="tape">
-                <div class="tape-rank">5</div>
-                <div class="tape-label">ジェミ<br>タイガール</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
+              <div class="album-card">
+                <div class="album-rank">3</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-3.jpg" alt="魔法咒语" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
                 </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">153万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/VcMOUpP2VEU" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1ZvMEzSEwd/" target="_blank" class="bilibili">B站</a>
-                </div>
-              </div>
-              <div class="tape">
-                <div class="tape-rank">6</div>
-                <div class="tape-label">右肩の蝶<br>鏡音レン</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
-                </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">107万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/DGZmCi8jrBA" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1AM4m127C2/" target="_blank" class="bilibili">B站</a>
+                <div class="album-info">
+                  <div class="album-title-cn">魔法咒语（BIBIDIBA）</div>
+                  <div class="album-title-jp">ビビデバ / 星街すいせい（Full）</div>
+                  <div class="album-views">241万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/E2lG9VqGmT0" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1DD42137j8/" target="_blank" class="bili">B站</a>
+                  </div>
                 </div>
               </div>
-              <div class="tape">
-                <div class="tape-rank">7</div>
-                <div class="tape-label">IRIS OUT<br>米津玄師</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
+              <div class="album-card">
+                <div class="album-rank">4</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-4.jpg" alt="小夜曲" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
                 </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">96万播放</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/apTbm9g2fNw" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1owsNzXEbJ/" target="_blank" class="bilibili">B站</a>
+                <div class="album-info">
+                  <div class="album-title-cn">小夜曲</div>
+                  <div class="album-title-jp">セレナーデ / なとり</div>
+                  <div class="album-views">225万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/r8d3gbwJBMs" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1E6DeBQEsK/" target="_blank" class="bili">B站</a>
+                  </div>
                 </div>
               </div>
-              <div class="tape new-release">
-                <div class="tape-rank" style="color:#f59e0b;">NEW</div>
-                <div class="tape-label">呀啦啦啦<br>最新翻唱</div>
-                <div class="tape-reels">
-                  <div class="tape-reel"></div>
-                  <div class="tape-reel"></div>
+              <div class="album-card">
+                <div class="album-rank">5</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-5.jpg" alt="妄想病娇女孩" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
                 </div>
-                <div class="tape-strip"></div>
-                <div class="tape-views">刚发布</div>
-                <div class="tape-links">
-                  <a href="https://youtu.be/WP8bO8b3StI" target="_blank" class="yt">YT</a>
-                  <a href="https://www.bilibili.com/video/BV1eXt26hEX9/" target="_blank" class="bilibili">B站</a>
+                <div class="album-info">
+                  <div class="album-title-cn">妄想病娇女孩</div>
+                  <div class="album-title-jp">ジェミタイガール</div>
+                  <div class="album-views">153万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/VcMOUpP2VEU" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1ZvMEzSEwd/" target="_blank" class="bili">B站</a>
+                  </div>
+                </div>
+              </div>
+              <div class="album-card">
+                <div class="album-rank">6</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-6.jpg" alt="右肩之蝶" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
+                </div>
+                <div class="album-info">
+                  <div class="album-title-cn">右肩之蝶</div>
+                  <div class="album-title-jp">右肩の蝶 Ver.鏡音レン</div>
+                  <div class="album-views">107万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/DGZmCi8jrBA" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1AM4m127C2/" target="_blank" class="bili">B站</a>
+                  </div>
+                </div>
+              </div>
+              <div class="album-card">
+                <div class="album-rank">7</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-7.jpg" alt="IRIS OUT" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
+                </div>
+                <div class="album-info">
+                  <div class="album-title-cn">IRIS OUT</div>
+                  <div class="album-title-jp">IRIS OUT / 米津玄師</div>
+                  <div class="album-views">96万播放</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/apTbm9g2fNw" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1owsNzXEbJ/" target="_blank" class="bili">B站</a>
+                  </div>
+                </div>
+              </div>
+              <div class="album-card new">
+                <div class="album-rank">NEW</div>
+                <div class="album-cover-wrap">
+                  <div class="album-cover"><img src="assets/album-8.jpg" alt="呀啦啦啦" loading="lazy" decoding="async"></div>
+                  <div class="album-vinyl"></div>
+                </div>
+                <div class="album-info">
+                  <div class="album-title-cn">呀啦啦啦</div>
+                  <div class="album-title-jp">最新翻唱</div>
+                  <div class="album-views">刚发布</div>
+                  <div class="album-links">
+                    <a href="https://youtu.be/WP8bO8b3StI" target="_blank" class="yt">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1eXt26hEX9/" target="_blank" class="bili">B站</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <p style="margin-top:8px;font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表（截至2026年9月29日统计） · 鼠标悬停磁带，转轴会转起来！</p>
+          <p style="margin-top:8px;font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表（截至2026年9月29日统计） · 鼠标悬停唱片，黑胶会滑出来转！</p>
         </div>
       </article>
     </section>
