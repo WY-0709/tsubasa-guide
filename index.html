@@ -1554,15 +1554,14 @@
     .album-vinyl {
       position: absolute;
       right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: calc(50% - 65px);
       width: 130px;
       height: 130px;
       border-radius: 50%;
       background: radial-gradient(circle, #1a1a1a 18%, #2a2a2a 20%, #1a1a1a 22%, #2a2a2a 24%, #1a1a1a 26%, #2a2a2a 28%, #1a1a1a 30%, #2a2a2a 32%, #1a1a1a 34%, #2a2a2a 36%, #1a1a1a 38%, #2a2a2a 40%, #1a1a1a 42%, #2a2a2a 44%, #1a1a1a 46%, #2a2a2a 48%, #1a1a1a 50%, #2a2a2a 52%, #1a1a1a 54%, #2a2a2a 56%, #1a1a1a 58%, #2a2a2a 60%, #1a1a1a 62%, #2a2a2a 64%, #1a1a1a 66%, #2a2a2a 68%, #1a1a1a 70%, #2a2a2a 72%, #1a1a1a 74%, #2a2a2a 76%, #1a1a1a 78%, #2a2a2a 80%, #1a1a1a 82%, #2a2a2a 84%, #1a1a1a 86%, #2a2a2a 88%, #1a1a1a 90%, #2a2a2a 92%, #1a1a1a 94%, #2a2a2a 96%);
       z-index: 1;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      transition: transform 0.4s var(--ease-bounce);
+      transition: right 0.4s var(--ease-bounce);
     }
     .album-vinyl::before {
       content: '';
@@ -1584,12 +1583,12 @@
       z-index: 1;
     }
     .album-card:hover .album-vinyl {
-      transform: translateY(-50%) translateX(8px);
+      right: -28px;
       animation: spin-vinyl 4s linear infinite;
     }
     @keyframes spin-vinyl {
-      from { transform: translateY(-50%) translateX(8px) rotate(0deg); }
-      to { transform: translateY(-50%) translateX(8px) rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     /* Album info */
     .album-info {
@@ -2684,7 +2683,7 @@
               <div class="album-card">
                 <div class="album-rank">2</div>
                 <div class="album-cover-wrap">
-                  <div class="album-cover"><img src="assets/album-2.jpg" alt="罗密欧与灰姑娘" loading="lazy" decoding="async"></div>
+                  <div class="album-cover"><img src="assets/album-2.jpg" alt="罗密欧与灰姑娘" loading="lazy" decoding="async" style="object-position: left 20%;"></div>
                   <div class="album-vinyl"></div>
                 </div>
                 <div class="album-info">
