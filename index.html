@@ -805,7 +805,14 @@
       padding-left: 22px;
       gap: 22px;
       width: 100%;
+      overflow-y: auto;
+      max-height: 100%;
+      scrollbar-width: thin;
+      scrollbar-color: var(--red-300) transparent;
     }
+    .disc-drawer::-webkit-scrollbar { width: 4px; }
+    .disc-drawer::-webkit-scrollbar-thumb { background: var(--red-300); border-radius: 2px; }
+    .disc-drawer::-webkit-scrollbar-track { background: transparent; }
 
     .disc {
       position: relative;
