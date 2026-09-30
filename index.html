@@ -1492,6 +1492,223 @@
       font-weight: 800;
     }
 
+    /* === Cassette tape shelf === */
+    .tape-shelf {
+      background: linear-gradient(180deg, #3a2a1a 0%, #2a1d10 100%);
+      border-radius: 14px;
+      padding: 20px 16px 8px;
+      margin-top: 14px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .tape-shelf::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 12px;
+      background: linear-gradient(180deg, #1a120a 0%, #0d0805 100%);
+      border-radius: 0 0 14px 14px;
+    }
+    .tape-rack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding-bottom: 12px;
+    }
+    .tape {
+      position: relative;
+      width: 130px;
+      min-height: 180px;
+      background: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 50%, #1e1e1e 100%);
+      border-radius: 8px;
+      padding: 10px 8px 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s var(--ease-smooth);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tape:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 0 1.5px rgba(255,107,107,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    /* Tape label area */
+    .tape-label {
+      width: 100%;
+      background: linear-gradient(135deg, var(--red-100) 0%, #fff5f5 50%, var(--red-50) 100%);
+      border-radius: 4px;
+      padding: 6px 5px;
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 6px;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Cassette reels */
+    .tape-reels {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .tape-reel {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #444 20%, #222 22%, #222 60%, #111 62%);
+      border: 1.5px solid #555;
+      position: relative;
+    }
+    .tape-reel::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 6px; height: 6px;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background: #666;
+    }
+    .tape-reel::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background:
+        conic-gradient(from 0deg, transparent 0deg, #333 40deg, transparent 50deg, #333 90deg, transparent 100deg, #333 140deg, transparent 150deg, #333 190deg, transparent 200deg, #333 240deg, transparent 250deg, #333 290deg, transparent 300deg, #333 340deg, transparent 350deg);
+      opacity: 0.5;
+    }
+    .tape:hover .tape-reel {
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* Tape bottom strip */
+    .tape-strip {
+      width: 100%;
+      height: 16px;
+      background: linear-gradient(90deg, #1a1a1a, #333, #1a1a1a);
+      border-radius: 2px;
+      margin-bottom: 4px;
+      position: relative;
+    }
+    .tape-strip::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%,-50%);
+      width: 40%;
+      height: 4px;
+      background: #111;
+      border-radius: 1px;
+    }
+    /* Tape info */
+    .tape-views {
+      font-size: 0.62rem;
+      color: #999;
+      text-align: center;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .tape-rank {
+      position: absolute;
+      top: -6px; right: -6px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red-500), var(--red-600));
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+    .tape-links {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+    }
+    .tape-links a {
+      font-size: 0.6rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.15s;
+    }
+    .tape-links .yt {
+      background: #ff0000;
+      color: #fff;
+    }
+    .tape-links .bilibili {
+      background: #fb7299;
+      color: #fff;
+    }
+    .tape-links a:hover {
+      transform: scale(1.1);
+    }
+    /* New release tape */
+    .tape.new-release {
+      border: 1.5px solid var(--red-400);
+      box-shadow: 0 0 12px rgba(255,107,107,0.3), 0 3px 8px rgba(0,0,0,0.4);
+    }
+    .tape.new-release .tape-label {
+      background: linear-gradient(135deg, #fff3cd 0%, #ffe0a3 100%);
+    }
+    /* Platform cards for listening guide */
+    .listen-platforms {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .listen-card {
+      background: var(--warm-white);
+      border-radius: 10px;
+      padding: 14px 12px;
+      border: 1.5px solid var(--red-200);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s var(--ease-smooth);
+    }
+    .listen-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--red-400);
+    }
+    .listen-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .listen-card h4 .badge {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+    .listen-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .listen-card li {
+      margin-bottom: 4px;
+      font-size: 0.82rem;
+    }
+    @media (max-width: 600px) {
+      .listen-platforms { grid-template-columns: 1fr; }
+      .tape { width: 110px; min-height: 160px; }
+    }
+
     /* Scroll to top */
     .scroll-top {
       position: fixed;
@@ -2416,18 +2633,22 @@
         <div class="item-header"><span class="tag">官方</span> 收听平台汇总</div>
         <div class="item-body">
           以下平台可收听Tsubasa的全部翻唱与原创歌曲：
-          <div class="equip-list" style="margin-top:10px;">
-            <div class="equip-item">
-              <strong>YouTube（最完整）</strong>
-              <span class="jp"><a href="https://www.youtube.com/@EL6_Tsubasa/videos?view=0&sort=p" target="_blank" class="channel-link">▶ 个人频道（按播放量排序）</a></span>
-              <span class="jp"><a href="https://www.youtube.com/@EL6_Tsubasa/videos" target="_blank" class="channel-link">▶ 个人频道（最新）</a></span>
-              <span class="jp"><a href="https://www.youtube.com/@elementsicks" target="_blank" class="channel-link">▶ EL6官方频道（合唱/企划）</a></span>
+          <div class="listen-platforms">
+            <div class="listen-card">
+              <h4>YouTube <span class="badge" style="background:#ff0000;color:#fff;">最完整</span></h4>
+              <ul>
+                <li><a href="https://www.youtube.com/@EL6_Tsubasa/videos?view=0&sort=p" target="_blank" class="channel-link">▶ 个人频道（按播放量排序）</a></li>
+                <li><a href="https://www.youtube.com/@EL6_Tsubasa/videos" target="_blank" class="channel-link">▶ 个人频道（最新）</a></li>
+                <li><a href="https://www.youtube.com/@elementsicks" target="_blank" class="channel-link">▶ EL6官方频道（合唱/企划）</a></li>
+              </ul>
             </div>
-            <div class="equip-item">
-              <strong>B站（授权搬运）</strong>
-              <span class="jp"><a href="https://space.bilibili.com/1077574203/lists/7850954?type=season" target="_blank" class="channel-link">▶ オススメ歌ってみた集（Tsubasa授权搬运合集）</a></span>
-              <span class="jp"><a href="https://space.bilibili.com/3546914890975674/upload/video" target="_blank" class="channel-link">▶ EL6-搬运戒托（歌曲+企划搬运）</a></span>
-              <span class="jp"><a href="https://www.bilibili.com/video/BV1LreBzBEUb/" target="_blank" class="channel-link">▶ 原创曲 Klaxon</a></span>
+            <div class="listen-card">
+              <h4>B站 <span class="badge" style="background:#fb7299;color:#fff;">授权搬运</span></h4>
+              <ul>
+                <li><a href="https://space.bilibili.com/1077574203/lists/7850954?type=season" target="_blank" class="channel-link">▶ オススメ歌ってみた集</a></li>
+                <li><a href="https://space.bilibili.com/3546914890975674/upload/video" target="_blank" class="channel-link">▶ EL6-搬运戒托</a></li>
+                <li><a href="https://www.bilibili.com/video/BV1LreBzBEUb/" target="_blank" class="channel-link">▶ 原创曲 Klaxon</a></li>
+              </ul>
             </div>
           </div>
           <p style="margin-top:8px;font-size:0.85em;color:var(--ink-muted);">YouTube频道注册日期：2021年12月12日（YouTube简介）。EL6官号也有很多Tsubasa参与的合唱，建议同时关注。</p>
@@ -2435,18 +2656,125 @@
       </article>
 
       <article class="knowledge-item hot">
-        <div class="item-header"><span class="tag">热知识</span> YouTube播放量 TOP 7</div>
+        <div class="item-header"><span class="tag">热知识</span> YouTube播放量 TOP 7 · 点磁带走起</div>
         <div class="item-body">
-          <ul class="song-list">
-            <li><strong>No.1</strong>：モニタリング / DECO*27 — 841万播放 <a href="https://youtu.be/R4oosDdOYlc" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1dtBjYVEkJ/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，1年前发布</span></li>
-            <li><strong>No.2</strong>：ロミオとシンデレラ（2025生日...） — 420万播放 <a href="https://youtu.be/fY93kZK5t4I" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1E8B7BgEAX/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，9个月前</span></li>
-            <li><strong>No.3</strong>：ビビデバ / 星街すいせい（Full Cover） — 241万播放 <a href="https://youtu.be/E2lG9VqGmT0" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1DD42137j8/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，2年前</span></li>
-            <li><strong>No.4</strong>：セレナーデ / なとり — 225万播放 <a href="https://youtu.be/r8d3gbwJBMs" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1E6DeBQEsK/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，5个月前</span></li>
-            <li><strong>No.5</strong>：ジェミタイガール — 153万播放 <a href="https://youtu.be/VcMOUpP2VEU" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1ZvMEzSEwd/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，1年前</span></li>
-            <li><strong>No.6</strong>：右肩の蝶 Ver.鏡音レン — 107万播放 <a href="https://youtu.be/DGZmCi8jrBA" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1AM4m127C2/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，2年前</span></li>
-            <li><strong>No.7</strong>：IRIS OUT / 米津玄師 — 96万播放 <a href="https://youtu.be/apTbm9g2fNw" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1owsNzXEbJ/" target="_blank" class="channel-link">→ B站</a> <span style="font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表，11个月前</span></li>
-            <li><strong>最新翻唱</strong>：呀啦啦啦 <a href="https://youtu.be/WP8bO8b3StI" target="_blank" class="channel-link">→ YouTube</a> <a href="https://www.bilibili.com/video/BV1eXt26hEX9/" target="_blank" class="channel-link">→ B站</a></li>
-          </ul>
+          <div class="tape-shelf">
+            <div class="tape-rack">
+              <div class="tape">
+                <div class="tape-rank">1</div>
+                <div class="tape-label">モニタリング<br>DECO*27</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">841万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/R4oosDdOYlc" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1dtBjYVEkJ/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape">
+                <div class="tape-rank">2</div>
+                <div class="tape-label">ロミオと<br>シンデレラ</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">420万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/fY93kZK5t4I" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1E8B7BgEAX/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape">
+                <div class="tape-rank">3</div>
+                <div class="tape-label">ビビデバ<br>星街すいせい</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">241万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/E2lG9VqGmT0" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1DD42137j8/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape">
+                <div class="tape-rank">4</div>
+                <div class="tape-label">セレナーデ<br>なとり</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">225万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/r8d3gbwJBMs" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1E6DeBQEsK/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape">
+                <div class="tape-rank">5</div>
+                <div class="tape-label">ジェミ<br>タイガール</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">153万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/VcMOUpP2VEU" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1ZvMEzSEwd/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape">
+                <div class="tape-rank">6</div>
+                <div class="tape-label">右肩の蝶<br>鏡音レン</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">107万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/DGZmCi8jrBA" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1AM4m127C2/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape">
+                <div class="tape-rank">7</div>
+                <div class="tape-label">IRIS OUT<br>米津玄師</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">96万播放</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/apTbm9g2fNw" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1owsNzXEbJ/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+              <div class="tape new-release">
+                <div class="tape-rank" style="background:linear-gradient(135deg,#f59e0b,#d97706);">NEW</div>
+                <div class="tape-label">呀啦啦啦<br>最新翻唱</div>
+                <div class="tape-reels">
+                  <div class="tape-reel"></div>
+                  <div class="tape-reel"></div>
+                </div>
+                <div class="tape-strip"></div>
+                <div class="tape-views">刚发布</div>
+                <div class="tape-links">
+                  <a href="https://youtu.be/WP8bO8b3StI" target="_blank" class="yt">YT</a>
+                  <a href="https://www.bilibili.com/video/BV1eXt26hEX9/" target="_blank" class="bilibili">B站</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top:8px;font-size:0.8em;color:var(--ink-muted);font-style:italic;">来源：YouTube视频列表（截至2026年9月29日统计） · 鼠标悬停磁带，转轴会转起来！</p>
         </div>
       </article>
     </section>
